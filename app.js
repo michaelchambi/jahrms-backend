@@ -78,6 +78,7 @@ const auth = require("./app/routes/auth_routes/auth_route");
 const permissions = require("./app/routes/permissions_routes/permissions_routes");
 const court = require("./app/routes/master_data_routes/api_court_rout");
 const announcement = require("./app/routes/announcement/announcement");
+const bank = require("./app/routes/bank/bank");
 
 app.use(url_use + api_version, route);
 app.use(url_use + api_version, general);
@@ -85,6 +86,7 @@ app.use(url_use + api_version, auth);
 app.use(url_use + api_version, permissions);
 app.use(url_use + api_version, court);
 app.use(url_use + api_version, announcement);
+app.use(url_use + api_version, bank);
 
 // =============================================================================
 // set port, listen for requests

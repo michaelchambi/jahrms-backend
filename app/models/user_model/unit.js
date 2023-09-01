@@ -1,48 +1,30 @@
 module.exports = (sequelize, Sequelize) => {
-	const app_sub_modules = sequelize.define("app_sub_modules", {
+	const unit = sequelize.define("unit", {
 		id: {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			allowNull: false,
 			primaryKey: true,
 		},
-
-		uid: {
+       
+	unit_name: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-
-		name: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			unique: true,
-		},
-
-		link: {
+        display_name:{
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-
-		icon: {
+        uid: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-
-		linkName: {
-			type: Sequelize.STRING,
-			allowNull: false,
-		},
-		display_option: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			defaultValue:'single_1'
-		},
-
 		active: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
 		},
 	});
 
-	return app_sub_modules;
+	return unit;
 };
+

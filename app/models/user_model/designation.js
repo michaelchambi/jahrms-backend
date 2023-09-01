@@ -10,10 +10,15 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.STRING,
             allowNull:false
         },
+       
         status:{
             type:Sequelize.BOOLEAN,
             allowNull: false
-        }
+        },
+        uid: {
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
     });
   
     return api_designation;

@@ -1,29 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-	const app_submodule_item= sequelize.define("app_submodule_item", {
+	const app_department = sequelize.define("app_department", {
 		id: {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			allowNull: false,
 			primaryKey: true,
 		},
-		module_id: {
+        incharge_title_id: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
-		submodule_id: {
-			type: Sequelize.INTEGER,
-			allowNull: false,
-		},
-		uid: {
+		department_name: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-		name: {
+        display_name:{
 			type: Sequelize.STRING,
 			allowNull: false,
-			unique: true,
 		},
-		linkName: {
+        is_judicial:{
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+        uid: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
@@ -33,5 +32,6 @@ module.exports = (sequelize, Sequelize) => {
 		},
 	});
 
-	return app_submodule_item;
+	return app_department;
 };
+

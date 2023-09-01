@@ -1,32 +1,38 @@
 module.exports = (sequelize, Sequelize) => {
-	const attachment_titles = sequelize.define("attachment_titles", {
+	const app_sub_module_item = sequelize.define("app_sub_module_item", {
 		id: {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			allowNull: false,
 			primaryKey: true,
 		},
+        submodule_id: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+		},
+
+
 		uid: {
-			type: Sequelize.TEXT,
-			allowNull: false,
-		},
-		title_name: {
-			type: Sequelize.TEXT,
-			allowNull: false,
-		},
-		title_code: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-		modal_name: {
+
+		name: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			unique: true,
+		},
+
+		link: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
+
 		active: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
 		},
 	});
 
-	return attachment_titles;
+	return app_sub_module_item;
 };

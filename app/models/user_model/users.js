@@ -76,10 +76,21 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			allowNull: true,
 		},
-		// isStaff:{
-        //     type: Sequelize.BOOLEAN,
-        //     allowNull: false
-        // },
+		designation_id: {
+			type: Sequelize.INTEGER,
+			allowNull: true,
+		},
+
+
+		birth_date: {
+			type: Sequelize.DATE,
+			allowNull: true,
+		},
+
+		hired_date: {
+			type: Sequelize.DATE,
+			allowNull: true,
+		},
 
 		account_non_locked: {
 			type: Sequelize.BOOLEAN,

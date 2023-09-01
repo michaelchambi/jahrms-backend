@@ -146,6 +146,7 @@ exports.edit = (req, res) => {
 	const uid = req.body.uid;
 	const name = req.body.name;
 	const icon = req.body.icon;
+	const display=req.body.display_option;
 	const module = capitalize(name.toLowerCase());
 
 	app_module
@@ -160,6 +161,7 @@ exports.edit = (req, res) => {
 					name: name,
 					icon: icon,
 					linkName: module.split(" ").join(""),
+					display_option:display
 				})
 				.then(result => {
 					res.status(200).json({

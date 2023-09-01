@@ -3,12 +3,9 @@ const db = require("../../models");
 const app_modules = db.app_modules;
 const app_sub_modules = db.app_sub_modules;
 const app_sub_module_action = db.app_sub_module_action;
-const app_sub_module_item_action = db.app_sub_module_item_action;
 const app_module_permission = db.app_module_permission;
 const app_sub_module_permission = db.app_sub_module_permission;
 const app_action_permission = db.app_action_permission;
-const app_submodule_item = db.app_submodule_item;
-const app_submodule_item_permission = db.app_sub_module_item_permission;
 const role_user = db.role_user;
 const roles = db.roles;
 const Op = db.Sequelize.Op;
@@ -54,29 +51,6 @@ exports.rolePermissions = (req, res) => {
           },
         },
         {
-            model: app_submodule_item,
-            include: [
-              {
-                model: app_submodule_item_permission,
-                where: {
-                  role_id: roleId,
-                },
-              },
-              {
-                model: app_sub_module_item_action,
-                include: {
-                  model: app_action_permission,
-                  where: {
-                    role_id: roleId,
-                  },
-                },
-              },
-            ],
-          },
-  
-          
-
-        {
           model: app_sub_modules,
           include: [
             {
@@ -103,16 +77,12 @@ exports.rolePermissions = (req, res) => {
       const module = [];
       const submodule = [];
       const action = [];
-      const submodule_item=[];
-      const submodule_item_action=[];
       const datacheck =[]
 
       for (const key in data) {
         const module_permission = data[key].app_module_permissions;
         const submodule_data = data[key].app_sub_modules;
         const action_data = data[key].app_sub_module_actions;
-        const submodule_item_data = data[key].app_submodule_items;
-        const action_item_data = data[key].app_sub_module_item_actions;
  
         
 
@@ -161,39 +131,6 @@ exports.rolePermissions = (req, res) => {
             }
           }
 
-
-        
-        
-
-
-
-        for (const value in submodule_item_data) {
-            const sub_module_item_permission =
-              submodule_item_data[value].app_sub_module_item_permissions;
-  
-            for (const result in sub_module_item_permission) {
-              const sub_element = sub_module_item_permission[result];
-              if (sub_element.permission) {
-                submodule_item.push({
-                  module_id: submodule_item_data[value].module_id,
-                  summodule_id: submodule_item_data[value].submodule_id,
-                  name: submodule_item_data[value].name,
-                  sub_module_item_id: sub_element.sub_module_item_id,
-                  checked: true,
-                });
-              } else {
-                submodule_item.push({
-                  module_id: submodule_item_data[value].module_id,
-                  summodule_id: submodule_item_data[value].submodule_id,
-                  name: submodule_item_data[value].name,
-                  sub_module_item_id: sub_element.sub_module_item_id,
-                });
-              }
-            }
-          }
-
-
-
         for (const series in action_data) {
             const action_permission = action_data[series].app_action_permissions;
   
@@ -217,57 +154,6 @@ exports.rolePermissions = (req, res) => {
           }
 
 
-        //   for (const series in action_item_data) {
-        //     const action_item_permission  = action_data[series].app_sub_module_item_actions;
-  
-        //     for (const action_key in action_item_permission) {
-        //       const action_element = action_item_permission[action_key];
-        //       if (action_element.permission) {
-        //         submodule_item_action.push({
-        //           action_id: action_element.action_id,
-        //           name: action_data[series].name,
-        //           sub_module_id: action_data[series].sub_module_id,
-        //           checked: true,
-        //         });
-        //       } else {
-        //         action.push({
-        //           action_id: action_element.action_id,
-        //           name: action_data[series].name,
-        //           sub_module_id: action_data[series].sub_module_id,
-        //         });
-        //       }
-        //     }
-        //   }
-
-
-          
-        for (const series in submodule_item_data) {
-            const action_item_permission = submodule_item_data[series];
-            // const permissionCheck =  submodule_item_data[0].app_sub_module_item_permissions
-
-            datacheck.push(action_item_permission)
-
-            // return res.json(datacheck)
-  
-            // for (const action_key in permissionCheck) {
-            //   const action_element = permissionCheck[action_key];
-            //   if (action_element.permission) {
-            //     datacheck.push({
-            //       action_id: action_element.action_id,
-            //       name: action_item_permission[series].name,
-            //       sub_module_item_id: action_item_permission[series].sub_module_item_id,
-            //       checked: true,
-            //     });
-            //   } else {
-            //     app_sub_module_item_action.push({
-            //       action_item_id: action_element.action_item_id,
-            //       name: action_item_permission[series].name,
-            //       sub_module_itemid: action_item_permission[series].sub_module_item_id,
-            //     });
-            //   }
-            // }
-           
-          }
 
           
 
@@ -291,8 +177,6 @@ exports.rolePermissions = (req, res) => {
           module: module,
           submule: submodule,
           action: action,
-           submodule_item:submodule_item,
-          submodule_item_action:datacheck
         },
       });
     })

@@ -4,7 +4,7 @@ const { authCheck } = require("../../middlewares");
 const module_controller = require("../../controllers/permission_controller/modules");
 const submodule_controller = require("../../controllers/permission_controller/sub_module");
 const submodule_item_controller = require("../../controllers/permission_controller/sub_module_item");
-const permission_item_controller = require("../../controllers/permission_controller/role_permission");
+
 const action_controller = require("../../controllers/permission_controller/sub_module_action");
 const permission_controller = require("../../controllers/permission_controller/role_permission");
 const role_controller = require("../../controllers/user_controller/roles");
@@ -25,20 +25,24 @@ router.post("/modules/deactivate-module", [authCheck.verifyToken], module_contro
 
 router.post("/sub-modules/add-submodule", [authCheck.verifyToken], submodule_controller.add);
 router.get("/sub-modules/sub-modules", [authCheck.verifyToken], submodule_controller.findAll);
+router.get("/sub-modules/sub-modules/embeded", [authCheck.verifyToken], submodule_controller.findAllEmbeded);
 router.post("/sub-modules/sub-module/show", [authCheck.verifyToken], submodule_controller.findOne);
 router.post("/sub-modules/find-sub-module", [authCheck.verifyToken], submodule_controller.submodule);
 router.post("/sub-modules/edit-sub-module", [authCheck.verifyToken], submodule_controller.edit);
 router.post("/sub-modules/activate-sub-module", [authCheck.verifyToken], submodule_controller.activate);
 router.post("/sub-modules/deactivate-sub-module", [authCheck.verifyToken], submodule_controller.deactivate);
 
-router.post("/sub-modules-item/add-submodule-item", [authCheck.verifyToken], submodule_item_controller .add);
-router.get("/sub-modules-item/sub-module-items", [authCheck.verifyToken], submodule_item_controller .findAll);
-router.post("/sub-modules-item/sub-module-item/show", [authCheck.verifyToken], submodule_item_controller .findOne);
-router.post("/sub-modules-item/find-sub-module-item", [authCheck.verifyToken], submodule_item_controller.submoduleItem);
-router.post("/sub-modules-item/edit-sub-module-item", [authCheck.verifyToken], submodule_item_controller .edit);
-router.post("/sub-modules-item/activate-sub-module-item", [authCheck.verifyToken], submodule_item_controller .activate);
-router.post("/sub-modules-item/deactivate-sub-module-item", [authCheck.verifyToken], submodule_item_controller .deactivate);
 
+
+
+router.post("/sub-modules-item/add-submodule-item", [authCheck.verifyToken], submodule_item_controller.add);
+router.get("/sub-modules-item/sub-modules-item", [authCheck.verifyToken], submodule_item_controller.findAll);
+router.post("/sub-modules-item/sub-module-item/show", [authCheck.verifyToken], submodule_item_controller.findOne);
+router.post("/sub-modules-item/sub-module-item/showSubmoduleItems", [authCheck.verifyToken], submodule_item_controller.findAllSubmoduleitem);
+router.post("/sub-modules-item/find-sub-module-item", [authCheck.verifyToken], submodule_item_controller.submodule);
+router.post("/sub-modules-item/edit-sub-module-item", [authCheck.verifyToken], submodule_item_controller.edit);
+router.post("/sub-modules-item/activate-sub-module-item", [authCheck.verifyToken], submodule_item_controller.activate);
+router.post("/sub-modules-item/deactivate-sub-module-item", [authCheck.verifyToken], submodule_item_controller.deactivate);
 
 
 router.post("/sub-module-actions/add-action", [authCheck.verifyToken], action_controller.add);
@@ -48,24 +52,6 @@ router.post("/sub-module-actions/find-sub-module-action", [authCheck.verifyToken
 router.post("/sub-module-actions/edit-sub-module-action", [authCheck.verifyToken], action_controller.edit);
 router.post("/sub-module-actions/activate-sub-module-action", [authCheck.verifyToken], action_controller.activate);
 router.post("/sub-module-actions/deactivate-sub-module-action", [authCheck.verifyToken], action_controller.deactivate);
-
-router.post("/sub-module-item-actions/add-sub-module-item-action", [authCheck.verifyToken], action_controller.add);
-router.get("/sub-module-item-actions/sub-module-item-actions", [authCheck.verifyToken], action_controller.findAll);
-router.post("/sub-module-item-actions/sub-module-item-action/show", [authCheck.verifyToken], action_controller.findOne);
-router.post("/sub-module-item-actions/find-sub-module-item-action", [authCheck.verifyToken], action_controller.action);
-router.post("/sub-module-item-actions/edit-sub-module-item-action", [authCheck.verifyToken], action_controller.edit);
-router.post("/sub-module-item-actions/activate-sub-module-item-action", [authCheck.verifyToken], action_controller.activate);
-router.post("/sub-module-item-actions/deactivate-sub-module-item-action", [authCheck.verifyToken], action_controller.deactivate);
-
-
-router.get("/permissions-item/permissions-item", [authCheck.verifyToken], permission_item_controller .permissions);
-router.post("/permissions-item/role-permission-item", [authCheck.verifyToken], permission_item_controller .rolePermissions);
-router.post("/permissions-item/active-role-permission-item", [authCheck.verifyToken], permission_item_controller .activePermissions);
-router.post("/permissions-item/updateItemPermission", [authCheck.verifyToken], permission_item_controller .updatePermissions);
-router.post("/permissions-item/show-module-permission-item", [authCheck.verifyToken], permission_item_controller .showModulePermissions);
-router.post("/permissions-item/show-submodule-permission-item", [authCheck.verifyToken], permission_item_controller .showSubPermissions);
-router.post("/permissions-item/show-action-permission-item", [authCheck.verifyToken], permission_item_controller .showActionPermissions);
-
 
 router.get("/permissions/permissions", [authCheck.verifyToken], permission_controller.permissions);
 router.post("/permissions/role-permission",  permission_controller.rolePermissions);
@@ -87,6 +73,7 @@ router.post("/users/add-user", [authCheck.verifyToken], [authCheck.userExistance
 router.post("/users/edit-user", [authCheck.verifyToken], user_controller.edit, [authCheck.checkActiveComplaint], [authCheck.checkActiveAppeal]);
 router.post("/users/user/show", [authCheck.verifyToken], user_controller.findOne);
 router.get("/users/show/:id", [authCheck.verifyToken], user_controller.findOneOnly);
+router.get("/users/totalEmployee", [authCheck.verifyToken], user_controller.countMyEmployee);
 router.get("/users", [authCheck.verifyToken], user_controller.getAllUsers);
 router.post("/users/users-list", [authCheck.verifyToken], user_controller.organization_users_list);
 router.post("/users/institution-users-list", [authCheck.verifyToken], user_controller.userList);

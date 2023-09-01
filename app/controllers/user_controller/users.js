@@ -26,9 +26,9 @@ exports.signup = (req, res) => {
     const birthDate=req.body.birth_date;
     const dateHired=req.body.hired_date;
     const gender=req.body.gender;
-    const designationName=req.body.designation;
+    const designationName=req.body.designation_id;
     const phone = req.body.phone_number;
-    const checkNumber = req.body.phone_number;
+    const checkNumber = req.body.check_number;
     const national_id = req.body.national_id;
     const roles = req.body.roles;
     const created_by = req.body.created_by;
@@ -52,9 +52,9 @@ exports.signup = (req, res) => {
         password: bcrypt.hashSync(tempPass, 8),
         password_expiration_date: newDate,
         sex:gender,
-        designation: designationName,
+        designation_id: designationName,
         birth_date: birthDate,
-        hire_date: dateHired,
+        hired_date: dateHired,
         account_non_locked: false,
         credential_non_expired: false,
         number_of_attempt: 0,
@@ -96,109 +96,6 @@ exports.signup = (req, res) => {
 
 
 
-
-
-
-
-
-    // const basicAuth = Buffer.from(`${process.env.LOGIN_USERNAME}:${process.env.LOGIN_PASSWORD}`).toString("base64");
-    // const data = new URLSearchParams();
-    // data.append("grant_type", process.env.LOGIN_GRANT_TYPE);
-    // data.append("username", process.env.LOGIN_USERNAME);
-    // data.append("password", process.env.LOGIN_PASSWORD);
-    
-
-    // // const tempPass = pass.password();
-    // axios({
-    //         method: process.env.LOGIN_METHOD,
-    //         url: process.env.LOGIN_ENDPOINT,
-    //         headers: {
-    //             Authorization: `Basic ${basicAuth}`,
-    //             "Content-Type": "application/x-www-form-urlencoded",
-    //         },
-    //         data: data,
-    //     })
-    //     .then(info => {
-    //         axios({
-    //                 method: process.env.REGISTRATION_METHOD,
-    //                 url: process.env.REGISTRATION_ENDPOINT + national_id,
-
-    //                 headers: { Authorization: "Bearer " + info.data.access_token },
-    //             })
-    //             .then(user => {
-    //                 // return res.status(200).json(user.data.data.firstName);
-
-    //                 const name = user.data.data.firstName.toLowerCase() + " " + user.data.data.middleName.toLowerCase() + " " + user.data.data.lastName.toLowerCase();
-    //                 users
-    //                     .create({
-    //                         uid: uid,
-    //                         first_name: user.data.data.firstName,
-    //                         middle_name: user.data.data.middleName,
-    //                         last_name: user.data.data.lastName,
-    //                         name: capitalize(name),
-    //                         check_number: user.data.data.checkNumber,
-    //                         employee_number: user.data.data.employee_number,
-    //                         email: email,
-    //                         phone_number: phone,
-    //                         national_id: national_id,
-    //                         password: bcrypt.hashSync(tempPass, 8),
-    //                         password_expiration_date: newDate,
-    //                         sex: user.data.data.sex,
-    //                         organization_code: user.data.data.organizationCode,
-    //                         designation: user.data.data.designationName,
-    //                         birth_date: user.data.data.birthDate,
-    //                         hire_date: user.data.data.dateHired,
-    //                         account_non_locked: false,
-    //                         credential_non_expired: false,
-    //                         number_of_attempt: 0,
-    //                         first_login: true,
-    //                         active: true,
-    //                         created_by: created_by,
-    //                     })
-    //                     .then(user_info => {
-    //                         for (const key in roles) {
-    //                             const role_data = roles[key];
-    //                             role_user.create({
-    //                                 role_id: role_data,
-    //                                 userId: user_info.id,
-    //                             });
-    //                         }
-
-    //                         mail.transport.sendMail(mail.USER_SIGNUP_MAIL(user_info.email, user_info.name, tempPass), (error, info) => {
-    //                             if (error) {
-    //                                 return res.status(200).json({
-    //                                     en_message: "Fail to send email to " + user_info.email + " but successful registered",
-    //                                     sw_message: "Imeshindwa kutuma barua pepe kwenda " + user_info.email + " usajili umekamilika",
-    //                                     data: user_info.uid,
-    //                                 });
-    //                             }
-    //                             return res.status(200).json({
-    //                                 en_message: user_info.name + " successful registered, Kindly check your email",
-    //                                 sw_message: user_info.name + " amesajiliwa kikamilifu, angalia barua pepe yako",
-    //                                 data: user_info.uid,
-    //                             });
-    //                         });
-    //                     })
-    //                     .catch(err => {
-    //                         res.status(500).json({
-    //                             en_message: "Fail to register user, Kindly try again",
-    //                             sw_message: "Imeshindwa kusajili mtumiaji, Tafadhali jaribu tena",
-    //                         });
-    //                     });
-    //             })
-    //             .catch(err => {
-    //                 res.status(500).json({
-    //                     en_message: "User not found",
-    //                     sw_message: "Anaejisajili hajawahi kuwa mtumishi wa umma",
-    //                 });
-    //             });
-    //     })
-    //     .catch(err => {
-    //         res.status(504).json({
-    //             en_message: "Something went wrong, Kindly try again  ",err,
-    //             sw_message: "Kuna kitu hakipo sawa, Jaribu tena baadae",err
-    //         });
-    //     });
 };
 
 exports.findOneOnly = (req, res) => {
@@ -223,7 +120,7 @@ exports.findOneOnly = (req, res) => {
             
                     res.status(200).json({
                         en_message: "User details found",
-                        sw_message: "Taarifa za mtumiaji",
+                        sw_message: "Employee Details",
                         data: data
                     });
         })
@@ -261,7 +158,7 @@ exports.findOne = (req, res) => {
                 .then(organization => {
                     res.status(200).json({
                         en_message: "User details found",
-                        sw_message: "Taarifa za mtumiaji",
+                        sw_message: "Employee Details",
                         data: data,
                         organization: organization,
                     });
@@ -425,6 +322,21 @@ exports.activate = (req, res) => {
         });
 };
 
+
+
+exports.countMyEmployee = (req, res) => {
+        users.count()
+          .then((totalData) => {
+            res.json(totalData);
+          })
+          .catch(err => {
+            res.status(500).send({
+              message: err.message || "error while Retrieving Total Employee"
+            });
+          });
+  };
+
+
 exports.deactivate = (req, res) => {
     
     const uid = req.body.uid;
@@ -476,7 +388,7 @@ exports.myProfile = (req, res) => {
                 .then(organization => {
                     res.status(200).json({
                         en_message: "User details found",
-                        sw_message: "Taarifa za mtumiaji",
+                        sw_message: "Employee Details",
                         data: {
                             data,
                             organization,

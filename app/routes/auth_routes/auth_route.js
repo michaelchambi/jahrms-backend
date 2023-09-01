@@ -5,12 +5,7 @@ const auth_controller = require("../../controllers/auth/auth");
 const api_controller = require("../../controllers/auth/api_auth");
 const employee_controller = require("../../controllers/employee_controller/employee_controller");
 
-// router.get("/", (req, res) => {
-//     res.sendFile(__dirname + "/welcome.html");
-// });
-//[authJwt.verifyToken],
 
-// router.post("/auth/signup", [authCheck.userExistance], auth_controller.signup);
 router.post("/auth/external-user/signup", auth_controller.signupExternalUser);
 router.post("/auth/signin", [authCheck.verifyUser], auth_controller.signin);
 router.post("/auth/forgot-password", auth_controller.forgot_password);
