@@ -340,6 +340,7 @@ db.app_module_permission.belongsTo(db.app_modules, {
 });
 
 
+<<<<<<< HEAD
 db.incharges.hasMany(db.department, {
 	foreignKey: "incharge_title_id",
 	onDelete: "CASCADE",
@@ -398,6 +399,8 @@ db.scope.belongsTo(db.department, {
 
 
 
+=======
+>>>>>>> 99f01a22bc38cb014234503367a8ff0032e3398f
 db.app_sub_modules.hasMany(db.app_submodule_item, {
 	foreignKey: "submodule_id",
 	onDelete: "CASCADE",
