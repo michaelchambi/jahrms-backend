@@ -17,7 +17,11 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true,
         },
-      
+        active: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue:false
+        },
        
     });
 

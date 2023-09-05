@@ -2,21 +2,21 @@ const dotenv = require("dotenv");
 dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
-
 const uid = require('uuid');
-const bank = db.bank;
-exports.addBank = (req, res) => {
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
+const district= db.district;
+
+exports.addDistrict= (req, res) => {
+    const district_name = req.body.district_name;
+    const district_code = req.body.district_abbreviation;
     const user_id = req.body.user_id;
-    if (!req.body.bank_name) {
-        return res.status(400).send({message: "Bank name has not filled."});
+    if (!req.body.district_name) {
+        return res.status(400).send({message: "Districtname has not filled."});
 
     } else {
-        bank.create({
-            name: bank_name,
+        district.create({
+            name: district_name,
             data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
+            district_abbreviation: district_code,
             uid:uid.v4(),
             status: true
         }).then((data) => {
@@ -31,20 +31,20 @@ exports.addBank = (req, res) => {
 };
 
 
-exports.editBank = (req, res) => {
+exports.editDistrict= (req, res) => {
     const id = req.body.id;
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
+    const district_name = req.body.district_name;
+    const district_code = req.body.district_abbreviation;
     const user_id = req.body.user_id;
-    bank.findOne({
+    district.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-          name: bank_name,
+          name: district_name,
             data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
+            district_abbreviation: district_code,
             uid: uid.v4(),
             status: true
           })
@@ -62,7 +62,7 @@ exports.editBank = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.body.id;
     // return console.log('the id is ',id);
-    bank.findOne({
+    district.findOne({
         where: {
             id: id
         }
@@ -75,7 +75,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    bank.findAll({
+    district.findAll({
         // where: {
         // status:1
         // },
@@ -89,10 +89,13 @@ exports.findAll = (req, res) => {
     });
 };
 
+
+
+
 exports.activate = (req, res) => {
     const id = req.body.id;
 
-    bank.findOne({
+    district.findOne({
         where: {
             id: id
         }
@@ -110,7 +113,7 @@ exports.activate = (req, res) => {
 exports.deactivate = (req, res) => {
     const id = req.body.id;
 
-    bank.findOne({
+    district.findOne({
         where: {
             id: id
         }

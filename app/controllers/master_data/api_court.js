@@ -1,198 +1,146 @@
-const axios = require('axios').default;
-require('dotenv').config();
+const dotenv = require("dotenv");
+dotenv.config();
 const db = require("../../models");
-const api_court = db.api_court;
 const Op = db.Sequelize.Op;
 
+const uid = require('uuid');
+const court = db.court;
+exports.addCourt = (req, res) => {
+    const court_name = req.body.court_name;
+    const court_code = req.body.court_abbreviation;
+    const user_id = req.body.user_id;
+    if (!req.body.court_name) {
+        return res.status(400).send({message: "Court name has not filled."});
 
-exports.add = (req, res)=>{
-    const court_name = req.body.name;
-    const court_code = req.body.code;
+    } else {
+        court.create({
+            name: court_name,
+            data_entry_personel_id: user_id,
+            court_abbreviation: court_code,
+            uid:uid.v4(),
+            status: true
+        }).then((data) => {
+            res.json({
+                message: data.name + " Successful Created"
+            });
 
-    api_court.create({
-        name:court_name,
-        code:court_code,
-        status: true,
-    })
-    .then((data)=>{
-        res.status(200).json({
-            message:'court added successfull',
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Kindly try again"+err
-        })
-    })
-}
+        }).catch((err) => {
+            res.status(500).send({message: err.errors});
+        });
+    }
+};
 
-exports.edit = (req, res)=>{
+
+exports.editCourt = (req, res) => {
     const id = req.body.id;
-    const name = req.body.name;
-    const code = req.body.code;
-
-    api_court.findOne({
-        where:{
-            id:id,
+    const court_name = req.body.court_name;
+    const court_code = req.body.court_abbreviation;
+    const user_id = req.body.user_id;
+    court.findOne({
+        where: {
+            id: id
         }
-    })
-    .then((data)=>{
+    }).then((data) => {
         data.update({
-            name:name,
-            code:code
+          name: court_name,
+            data_entry_personel_id: user_id,
+            court_abbreviation: court_code,
+            uid: uid.v4(),
+            status: true
+          })
+           .then((result) => {
+            res.status(200).send({
+                message: result.name + " Successful Updated"
+            });
         })
-        .then(()=>{
-            res.status(200).json({
-                message:"court updated successful"
-            })
-        })
-        .catch((err)=>{
-            res.status(500).json({
-                message:"Fail to update"
-            })
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Court not found"
-        }) 
-    })
-}
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
 
-exports.findAll = (req, res)=>{
-    const status = req.body.status;
 
-    api_court.findAndCountAll()
-    .then((data)=>{
-        res.status(200).json({
-            message:"Court(s) found",
-            courts:data
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:" No court found"
-        })
-    })
-}
+exports.findOne = (req, res) => {
+    const id = req.body.id;
+    // return console.log('the id is ',id);
+    court.findOne({
+        where: {
+            id: id
+        }
+    }).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
 
-exports.findOne = (req, res)=>{
+
+exports.findAll = (req, res) => {
+    court.findAll({
+        // where: {
+        // status:1
+        // },
+        order: [
+            ["name", "ASC"]
+        ]
+    }).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
+
+
+exports.findAllByCourtLevel = (req, res) => {
+  const  court_level_id=req.body.court_level_id;
+  const  zone_id=req.body.zone_id
+    court.findAll({
+        where: {
+        court_level_id:court_level_id,zone_id:zone_id
+        },
+        order: [
+            ["name", "ASC"]
+        ]
+    }).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
+
+
+
+exports.activate = (req, res) => {
     const id = req.body.id;
 
-    api_court.findOne({
-        where:{
-            id:id
+    court.findOne({
+        where: {
+            id: id
         }
-    })
-    .then((data)=>{
-        res.status(200).json({
-            message:"Court details",
-            court: data
+    }).then((data) => {
+        data.update({status: true}).then((result) => {
+            res.status(200).send({
+                message: data.name + " Successful activated"
+            });
         })
-    })
-    .catch(()=>{
-        res.status(500).json({
-            message:"Court not found"
-        })
-    })
-}
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
 
-exports.activate = (req, res)=>{
+exports.deactivate = (req, res) => {
     const id = req.body.id;
 
-    api_court.findOne({
-        where:{
-            id:id,
+    court.findOne({
+        where: {
+            id: id
         }
-    })
-    .then((data)=>{
-        data.update({
-            status:true,
+    }).then((data) => {
+        data.update({status: false}).then((result) => {
+            res.status(200).send({
+                message: data.name+ " Successful deactivated"
+            });
         })
-        .then(()=>{
-            res.status(200).json({
-                message:"court activated successful"
-            })
-        })
-        .catch((err)=>{
-            res.status(500).json({
-                message:"Fail to activate"
-            })
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Court not found"
-        }) 
-    }) 
-}
-exports.deactivate = (req, res)=>{
-    const id = req.body.id;
-
-    api_court.findOne({
-        where:{
-            id:id,
-        }
-    })
-    .then((data)=>{
-        data.update({
-            status:false,
-        })
-        .then(()=>{
-            res.status(200).json({
-                message:"court deactivated successful"
-            })
-        })
-        .catch((err)=>{
-            res.status(500).json({
-                message:"Fail to deactivate"
-            })
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Court not found"
-        }) 
-    }) 
-}
-
-exports.getCourts = (req, res)=>{
-    axios({
-        method:"GET",
-        url: process.env.get_courts,
-        responseType:"json",
-
-    })
-    .then((courts)=>{
-        res.status(200).json({
-            message:"Court(s) found",
-            data:courts.data
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Something went wrong in eCMS, Kindly try again"+err
-        })
-    })
-}
-
-exports.showCourts = (req, res)=>{
-    const court_id = req.body.court_id
-    axios({
-        method:"GET",
-        url: process.env.show_courts+court_id,
-        responseType:"json",
-
-    })
-    .then((courts)=>{
-        res.status(200).json({
-            message:"Court(s) found",
-            data:courts.data
-        })
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            message:"Something went wrong in eCMS, Kindly try again"
-        })
-    })
-}
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};

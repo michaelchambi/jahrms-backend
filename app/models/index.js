@@ -43,7 +43,8 @@ db.roles = require("./user_model/roles")(sequelize, Sequelize);
 db.role_user = require("./user_model/role_user")(sequelize, Sequelize);
 db.incharges = require("./user_model/incharges")(sequelize, Sequelize);
 db.department=require("./user_model/department")(sequelize, Sequelize);
-db.scope=require("./user_model/incharge_scope")(sequelize, Sequelize);
+db.scope=require("./user_model/scope")(sequelize, Sequelize);
+db.scope_station=require("./user_model/scope_station")(sequelize, Sequelize);
 db.unit=require("./user_model/unit")(sequelize, Sequelize);
 db.section=require("./user_model/section")(sequelize, Sequelize);
 db.bank=require("./bank/bank")(sequelize, Sequelize);
@@ -60,6 +61,8 @@ db.village=require("./village/village")(sequelize, Sequelize);
 db.court_level=require("./court_level/court_level")(sequelize, Sequelize);
 db.court=require("./court/court")(sequelize, Sequelize);
 db.nj_work_station=require("./non_judicial_work_stattion/nj_work_station")(sequelize, Sequelize);
+db.station=require("./user_model/station")(sequelize, Sequelize);
+
 
 
 
@@ -67,7 +70,7 @@ db.nj_work_station=require("./non_judicial_work_stattion/nj_work_station")(seque
 // ANNOUNCEMENT DATABASE TABLE CREATION
 // =============================================================================
 db.announcement = require("./announcement/announcement")(sequelize, Sequelize);
-
+db.leave_type=require("./user_model/leave_type")(sequelize, Sequelize);
 // =============================================================================
 // PERSONAL DETAILS DATABASE TABLE CREATION
 // =============================================================================
@@ -340,7 +343,6 @@ db.app_module_permission.belongsTo(db.app_modules, {
 });
 
 
-<<<<<<< HEAD
 db.incharges.hasMany(db.department, {
 	foreignKey: "incharge_title_id",
 	onDelete: "CASCADE",
@@ -399,8 +401,6 @@ db.scope.belongsTo(db.department, {
 
 
 
-=======
->>>>>>> 99f01a22bc38cb014234503367a8ff0032e3398f
 db.app_sub_modules.hasMany(db.app_submodule_item, {
 	foreignKey: "submodule_id",
 	onDelete: "CASCADE",
@@ -537,6 +537,34 @@ db.users.hasMany(db.role_user, {
 db.role_user.belongsTo(db.users, {
 	through: db.users,
 	foreignKey: "userId",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.scope.hasMany(db.scope_station, {
+	foreignKey: "scope_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.scope_station.belongsTo(db.scope, {
+	through: db.scope,
+	foreignKey: "scope_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.station.hasMany(db.scope_station, {
+	foreignKey: "statiion_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.scope_station.belongsTo(db.station, {
+	through: db.station,
+	foreignKey: "station_id",
 	onDelete: "CASCADE",
 	onUpdate: "CASCADE",
 });

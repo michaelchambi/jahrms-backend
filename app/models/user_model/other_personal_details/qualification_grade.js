@@ -6,11 +6,15 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
             autoIncrement:true
         },
+        data_entry_personel_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+        },
         qualification_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        grade_name:{
+        name:{
             type:Sequelize.STRING,
             allowNull:false,
         },
@@ -19,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
         },
       
-       status:{
+       active:{
             type:Sequelize.BOOLEAN,
             allowNull: false,
             defaultValue:true

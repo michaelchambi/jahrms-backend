@@ -133,7 +133,7 @@ exports.edit = (req, res) => {
 
 			res.status(200).json({
 				en_message: "Role Successful Edited",
-				sw_message: "Majukumu yamebadilishwa kikamilifu",
+				sw_message: "System Roles yamebadilishwa kikamilifu",
 			});
 		})
 		.catch(err => {
@@ -156,14 +156,14 @@ exports.findOne = (req, res) => {
 		.then(data => {
 			res.status(200).json({
 				en_message: "Roles found",
-				sw_message: "Majukumu yamepatikana",
+				sw_message: "System Roles yamepatikana",
 				data: data,
 			});
 		})
 		.catch(err => {
 			res.status(500).json({
 				en_message: "No roles found",
-				sw_message: "Majukumu hayajapatikana",
+				sw_message: "System Roles hayajapatikana",
 			});
 		});
 };
@@ -176,14 +176,14 @@ exports.findAll = (req, res) => {
 		.then(data => {
 			res.status(200).json({
 				en_message: "Roles found",
-				sw_message: "Majukumu yamepatikana",
+				sw_message: "System Roles yamepatikana",
 				data: data,
 			});
 		})
 		.catch(err => {
 			res.status(500).json({
 				en_message: "No roles found",
-				sw_message: "Majukumu hayajapatikana",
+				sw_message: "System Roles hayajapatikana",
 			});
 		});
 };
@@ -279,7 +279,7 @@ exports.changeRoles = (req, res) => {
 
 					res.status(200).json({
 						en_message: "Roles successful changes",
-						sw_message: "Majukumu yamebadilishwa kikamilifu",
+						sw_message: "System Roles yamebadilishwa kikamilifu",
 					});
 				})
 				.catch(err => {

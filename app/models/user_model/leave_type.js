@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const bank = sequelize.define("bank", {
+    const leave_type = sequelize.define("leave_type", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
@@ -12,21 +12,25 @@ module.exports = (sequelize, Sequelize) => {
         },
         name:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:false,
         },
-        bank_abbreviation:{
-            type:Sequelize.STRING,
-            allowNull:false
+        leave_description:{
+            type:Sequelize.TEXT,
+            allowNull:false,
         },
+      
+       active:{
+            type:Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue:true
+        },
+    
         uid:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:false,
         },
-        status:{
-            type:Sequelize.BOOLEAN,
-            allowNull: false
-        }
+       
     });
   
-    return bank;
+    return leave_type;
   };

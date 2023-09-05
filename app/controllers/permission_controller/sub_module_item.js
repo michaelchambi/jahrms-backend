@@ -10,18 +10,11 @@ const app_sub_module_permission = db.app_sub_module_permission;
 const Op = db.Sequelize.Op;
 
 exports.add = (req, res) => {
-<<<<<<< HEAD
 
 	const name = req.body.name;
 	const link = req.body.link;
 	const id = req.body.submodule_id;
 
-=======
-	const name = req.body.name;
-	const link = req.body.link;
-	const id = req.body.submodule_id;
-
->>>>>>> 99f01a22bc38cb014234503367a8ff0032e3398f
 	app_sub_module_item
 		.create({
 			uid: uuid.v4(),
@@ -40,13 +33,8 @@ exports.add = (req, res) => {
 		})
 		.catch(err => {
 			res.status(500).json({
-<<<<<<< HEAD
 				en_message: err+"Fail to add sub module item",
 				sw_message:err.message+ " Imeshindwa kuongeza module ndogo",
-=======
-				en_message: "Fail to add sub module item",
-				sw_message: " Imeshindwa kuongeza module ndogo",
->>>>>>> 99f01a22bc38cb014234503367a8ff0032e3398f
 			});
 		});
 };
@@ -116,10 +104,6 @@ app_sub_module.findOne({
                 where: {
                     uid: uid,
                 },
-<<<<<<< HEAD
-=======
-                
->>>>>>> 99f01a22bc38cb014234503367a8ff0032e3398f
             })
            
             .then(data => {

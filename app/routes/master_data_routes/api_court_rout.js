@@ -1,19 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const court = require("../../controllers/master_data/api_court");
-const {
-    court_middleware
-} = require("../../middlewares")
+const { authCheck } = require("../../middlewares");
+const controller = require("../../controllers/master_data/api_court");
 
-router.post("/courts/add-court",court.add);
-router.post("/courts/edit-court",court.edit);
-router.get("/courts/get-courts", court.findAll);
-router.post("/courts/show-court-info", court.findOne);
-router.post("/courts/activate-court", court.activate);
-router.post("/courts/deactivate-court", court.deactivate);
-router.get("/courts/get-ecms-court", court.getCourts);
-router.get("/courts/show-ecms-court", court.showCourts);
-
-
-
+router.post("/court/addCourt", controller.addCourt);
+router.get("/court/", [authCheck.verifyToken], controller.findAll);
+router.post("/court/show", [authCheck.verifyToken], controller.findOne);
+router.post("/court/bycourtlevel", [authCheck.verifyToken], controller.findAllByCourtLevel);
+router.post("/court/editCourt", [authCheck.verifyToken], controller.editCourt);
+router.post("/court/activateCourt", [authCheck.verifyToken], controller.activate);
+router.post("/court/deactivateCourt", [authCheck.verifyToken], controller.deactivate);
 module.exports = router;
+
+

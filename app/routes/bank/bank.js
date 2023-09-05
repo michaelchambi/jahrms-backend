@@ -9,6 +9,4 @@ router.post("/bank/show", [authCheck.verifyToken], controller.findOne);
 router.post("/bank/editBank", [authCheck.verifyToken], controller.editBank);
 router.post("/bank/activateBank", [authCheck.verifyToken], controller.activate);
 router.post("/bank/deactivateBank", [authCheck.verifyToken], controller.deactivate);
-
-
 module.exports = router;

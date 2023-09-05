@@ -1,24 +1,17 @@
 module.exports = (sequelize, Sequelize) => {
-	const app_department = sequelize.define("app_department", {
+	const scope = sequelize.define("scope", {
 		id: {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			allowNull: false,
 			primaryKey: true,
 		},
-        incharge_title_id: {
-			type: Sequelize.INTEGER,
-			allowNull: false,
-		},
-		name: {
+       
+	name: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-        display_name:{
-			type: Sequelize.STRING,
-			allowNull: false,
-		},
-        is_court:{
+        scope_description:{
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
@@ -32,6 +25,5 @@ module.exports = (sequelize, Sequelize) => {
 		},
 	});
 
-	return app_department;
+	return scope;
 };
-
