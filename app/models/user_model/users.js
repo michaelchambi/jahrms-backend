@@ -33,14 +33,26 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 		},
 
-		check_number: {
+		employee_passport: {
 			type: Sequelize.STRING,
 			allowNull: true,
 			unique: true,
 		},
-
 	
-
+		birth_certificate: {
+			type: Sequelize.STRING,
+			allowNull: true,
+		},
+		region_id: {
+			type: Sequelize.INTEGER,
+			allowNull: true,
+		},
+		
+		personal_folder: {
+			type: Sequelize.STRING,
+			allowNull: true,
+			unique: true,
+		},
 		email: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -62,6 +74,11 @@ module.exports = (sequelize, Sequelize) => {
 			unique: true,
 		},
 
+		district_id: {
+			type: Sequelize.STRING,
+			allowNull: true,
+		},
+
 		password: {
 			type: Sequelize.TEXT,
 			allowNull: false,
@@ -76,21 +93,12 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			allowNull: true,
 		},
-		designation_id: {
-			type: Sequelize.INTEGER,
-			allowNull: true,
-		},
-
-
+	
 		birth_date: {
 			type: Sequelize.DATE,
 			allowNull: true,
 		},
 
-		hired_date: {
-			type: Sequelize.DATE,
-			allowNull: true,
-		},
 
 		account_non_locked: {
 			type: Sequelize.BOOLEAN,
@@ -113,13 +121,10 @@ module.exports = (sequelize, Sequelize) => {
 		},
 
 		first_login: {
-			//default true till change the password,
-			//the rest default are false but change when this change
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
 		},
 		active: {
-			// deactivate & actvate
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
 		},

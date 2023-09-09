@@ -5,6 +5,7 @@ const controller = require("../../controllers/master_data/department");
 
 router.post("/department/addDepartment", controller.addDepartment);
 router.get("/department/", [authCheck.verifyToken], controller.findAll);
+router.get("/department/show/:id",[authCheck.verifyToken], controller.mobile_findOne);
 router.post("/department/show", [authCheck.verifyToken], controller.findOne);
 router.post("/department/editDepartment", [authCheck.verifyToken], controller.editDepartment);
 router.post("/department/activateDepartment", [authCheck.verifyToken], controller.activate);

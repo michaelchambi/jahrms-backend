@@ -61,7 +61,7 @@ db.village=require("./village/village")(sequelize, Sequelize);
 db.court_level=require("./court_level/court_level")(sequelize, Sequelize);
 db.court=require("./court/court")(sequelize, Sequelize);
 db.nj_work_station=require("./non_judicial_work_stattion/nj_work_station")(sequelize, Sequelize);
-db.station=require("./user_model/station")(sequelize, Sequelize);
+db.cadre=require("./user_model/cadre")(sequelize, Sequelize);
 
 
 
@@ -83,6 +83,8 @@ db.employment_details=require("./user_model/other_personal_details/employment_de
 db.next_of_kin=require("./user_model/other_personal_details/next_of_kin")(sequelize, Sequelize);
 db.personal_skill=require("./user_model/other_personal_details/personal_skill")(sequelize, Sequelize);
 db.professional_skill=require("./user_model/other_personal_details/professional_skills")(sequelize, Sequelize);
+db.professional=require("./user_model/other_personal_details/professional")(sequelize, Sequelize);
+
 db.working_station_details=require("./user_model/other_personal_details/working_station_details")(sequelize, Sequelize);
 db.qualification=require("./user_model/other_personal_details/qualification")(sequelize, Sequelize);
 db.qualification_grade=require("./user_model/other_personal_details/qualification_grade")(sequelize, Sequelize);
@@ -555,19 +557,37 @@ db.scope_station.belongsTo(db.scope, {
 	onUpdate: "CASCADE",
 });
 
-db.station.hasMany(db.scope_station, {
-	foreignKey: "statiion_id",
+
+db.department.hasMany(db.cadre, {
+	foreignKey: "department_id",
 	onDelete: "CASCADE",
 	onUpdate: "CASCADE",
 });
 
 
-db.scope_station.belongsTo(db.station, {
-	through: db.station,
-	foreignKey: "station_id",
+db.cadre.belongsTo(db.department, {
+	through: db.department,
+	foreignKey: "department_id",
 	onDelete: "CASCADE",
 	onUpdate: "CASCADE",
 });
+
+
+db.cadre.hasMany(db.api_designation, {
+	foreignKey: "cadre_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.api_designation.belongsTo(db.cadre, {
+	through: db.cadre,
+	foreignKey: "cadre_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
 
 
 

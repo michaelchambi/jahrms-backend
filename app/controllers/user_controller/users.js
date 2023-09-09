@@ -1,6 +1,4 @@
-require("dotenv").config({
-    path: "./app/.env",
-});
+const dotenv = require("dotenv");
 const db = require("../../models");
 const capitalize = require("../../../node_modules/capitalize-the-first-letter/capitalize");
 const pass = require("../../config/password");
@@ -8,27 +6,67 @@ const mail = require("../../config/mail");
 const uuid = require("uuid");
 const querystring = require("querystring");
 const qs = require("qs");
+const path = require("path");
 const users = db.users;
 const role_user = db.role_user;
 const roles = db.roles;
 const organization = db.organization;
 const axios = require("axios").default;
+const fs = require("fs");
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const file_names_generating_code = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+function codegenerator(length) {
+    let result = "";
+    const characterLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characterLength));
+    }
+    return result;
+  }
+  
+  function file_codegenerator(length) {
+    let result = "";
+    const characterLength = file_names_generating_code.length;
+    for (let i = 0; i < length; i++) {
+      result += file_names_generating_code.charAt(
+        Math.floor(Math.random() * characterLength)
+      );
+    }
+    return result;
+  }
+
+
+
+
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-    //return console.log('my results are ',req.body)
+//  return console.log('my results are ',req.files)
+
+//   const birth_certificate = req.files.birth_certificate;
+  const employee_passport = req.files.employee_passport;
+  const passportExtensionName = path.extname(employee_passport.name);
+  const allowedPassportExtension = [".png",".jpg","jpeg",".webp"];
+
+  const birth_certificate = req.files.birth_certificate;
+  const birthCertificateExtensionName = path.extname(birth_certificate.name);
+  const allowedBirthCertificateExtension = [".pdf"];
+
+  const employee_folder_path = process.env.employee_directory_path;
+  const file_abreviation = "Emp-";
     const email = req.body.email;
+    const region=req.body.region_id;
+    const district_id=req.body.district_id;
+    const marital_status = req.body.marital_status;
     const firstName=req.body.first_name;
     const lastName=req.body.last_name;
     const middleName=req.body.middle_name;
     const birthDate=req.body.birth_date;
-    const dateHired=req.body.hired_date;
     const gender=req.body.gender;
-    const designationName=req.body.designation_id;
     const phone = req.body.phone_number;
-    const checkNumber = req.body.check_number;
     const national_id = req.body.national_id;
     const roles = req.body.roles;
     const created_by = req.body.created_by;
@@ -38,23 +76,37 @@ exports.signup = (req, res) => {
     const fullname=firstName+' '+middleName+' '+lastName;
 
     const tempPass = pass.passoword();
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send({
+          message: "No files were uploaded.",
+        });
+      } else if (!allowedPassportExtension.includes(passportExtensionName)||!allowedBirthCertificateExtension.includes(birthCertificateExtensionName)) {
+        return res.status(422).send({
+          message: "Invalid File | check your File format",
+        });
+      } else {
     users
     .create({
+
+        
         uid: uid,
         first_name: firstName,
         middle_name: middleName,
         last_name: lastName,
+        region_id:region,
+        district_id:district_id,
+        marital_status:marital_status,
+        employee_passport:file_abreviation + file_codegenerator(6) + passportExtensionName,
+        birth_certificate:file_abreviation + file_codegenerator(6) + birthCertificateExtensionName,
         name: capitalize(fullname),
-        check_number: checkNumber,
         email: email,
         phone_number: phone,
         national_id: national_id,
         password: bcrypt.hashSync(tempPass, 8),
         password_expiration_date: newDate,
         sex:gender,
-        designation_id: designationName,
+        personal_folder:file_abreviation + codegenerator(8),
         birth_date: birthDate,
-        hired_date: dateHired,
         account_non_locked: false,
         credential_non_expired: false,
         number_of_attempt: 0,
@@ -85,27 +137,53 @@ exports.signup = (req, res) => {
                 data: user_info.uid,
             });
         });
-    })
-
-        .catch((err) => {
-            res.status(500).send({
-                message: err,
-                'code': 0
+        const passport_file_path = employee_folder_path + user_info.personal_folder;
+        const passport_filename = user_info.employee_passport;
+        fs.mkdirSync(passport_file_path, { recursive: true });
+        employee_passport.mv(path.join(passport_file_path, passport_filename), (err) => {
+          if (err) {
+            return res.status(500).send({
+              message: "No such file or directory" + err,
             });
+          }
         });
 
+        const birthCertificate_file_path = employee_folder_path + user_info.personal_folder;;
+        const birthCertificate_filename = user_info.birth_certificate;
+        fs.mkdirSync(birthCertificate_file_path, { recursive: true });
+        birth_certificate.mv(path.join(birthCertificate_file_path, birthCertificate_filename), (err) => {
+          if (err) {
+            return res.status(500).send({
+              message: "No such file or directory" + err,
+            });
+          }
+        });
+        res.json({
+          message:'Birth Certificate '+" Successful Added",
+        });
 
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err,
+            'code': 0
+        });
+    });
+       
+
+    }
+    
 
 };
 
 exports.findOneOnly = (req, res) => {
 
      //return console.log('data are ',req.params.id)
-    const uid = parseInt(req.params.id);
+    const uid = req.params.id;
     users
         .findOne({
             where: {
-                id: parseInt(req.params.id),
+                uid: uid
             },
             include: [{
                 model: role_user,
@@ -404,3 +482,21 @@ exports.myProfile = (req, res) => {
         });
     });
 };
+
+
+exports.download = (req, res) => {
+    const employeefolder = req.params.d1r3c7095;
+    const fileName = req.params.name;
+    const directoryPath = "../../../STORAGES/hrm-storage-files/employee/";
+    res.download(
+      directoryPath + employeefolder + "/" + fileName,
+      fileName,
+      (err) => {
+        if (err) {
+          res.status(500).send({
+            message: "Could not download the file. " + err,
+          });
+        }
+      }
+    );
+  };

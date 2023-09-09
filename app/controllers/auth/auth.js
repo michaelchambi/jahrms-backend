@@ -107,6 +107,11 @@ exports.signin = (req, res) => {
 					{ model: role}]
 				})
 				  .then((user_role_details ) => {
+					// if(!user_role_details.role.name){
+					// 	res.status(200).json({
+					// 	en_message: "You can not Reset Email Unit you "
+					// 	})
+					// }
 					// return console.log('login data is ',data);
 					const role_name=user_role_details.role.name;
 					// res.status(200).send(user_role_details );
@@ -167,7 +172,7 @@ exports.forgot_password = (req, res) => {
 							}
 							return res.json({
 								en_message: "You're all set, Check your email to reset password,",
-								sw_message: " Imefanikiwa, tumekutumia barua pepe na maelekezo jinsi ya kurejesha nenosiri",
+								sw_message: " Congraturation !, tumekutumia barua pepe na maelekezo jinsi ya kurejesha nenosiri",
 							});
 						});
 					});

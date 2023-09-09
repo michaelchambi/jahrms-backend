@@ -84,6 +84,7 @@ const department = require("./app/routes/master_data_routes/department");
 const qualification = require("./app/routes/master_data_routes/qualification");
 const zone = require("./app/routes/master_data_routes/zone");
 const designation = require("./app/routes/master_data_routes/designation");
+const region = require("./app/routes/master_data_routes/region");
 const district = require("./app/routes/master_data_routes/district");
 const ward = require("./app/routes/master_data_routes/ward");
 const village = require("./app/routes/master_data_routes/village");
@@ -93,6 +94,8 @@ const station= require("./app/routes/master_data_routes/station");
 const scope= require("./app/routes/master_data_routes/scope");
 const leave_type = require("./app/routes/master_data_routes/leave_type");
 const qualification_grade = require("./app/routes/master_data_routes/qualification_grade");
+const cadre = require("./app/routes/master_data_routes/cadre");
+const professional = require("./app/routes/master_data_routes/professional");
 
 
 app.use(url_use + api_version, route);
@@ -103,19 +106,23 @@ app.use(url_use + api_version, court_level);
 app.use(url_use + api_version, court);
 app.use(url_use + api_version, announcement);
 app.use(url_use + api_version, bank);
-app.use(url_use + api_version, department);
 app.use(url_use + api_version, qualification);
 app.use(url_use + api_version, qualification_grade);
 app.use(url_use + api_version, zone);
-app.use(url_use + api_version, village);
+app.use(url_use + api_version, region);
 app.use(url_use + api_version, district);
-app.use(url_use + api_version, designation);
 app.use(url_use + api_version, ward);
+app.use(url_use + api_version, village);
+app.use(url_use + api_version, designation);
+app.use(url_use + api_version, department);
 app.use(url_use + api_version, units);
 app.use(url_use + api_version, section);
 app.use(url_use + api_version, scope);
 app.use(url_use + api_version, station);
 app.use(url_use + api_version, leave_type);
+app.use(url_use + api_version, cadre);
+app.use(url_use + api_version, professional);
+
 // =============================================================================
 // set port, listen for requests
 // =============================================================================

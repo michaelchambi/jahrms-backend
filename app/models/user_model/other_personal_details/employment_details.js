@@ -12,11 +12,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         check_number:{
             type:Sequelize.INTEGER,
-            allowNull:false
+            allowNull:true
         },
        pf_number:{
             type:Sequelize.INTEGER,
-            allowNull:false
+            allowNull:true
         },
         confirmation_date:{
             type:Sequelize.DATE,
@@ -25,15 +25,19 @@ module.exports = (sequelize, Sequelize) => {
 
         hired_date:{
             type:Sequelize.DATE,
-            allowNull:false
+            allowNull:true
         },
         hiring_latter:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:true
+        },
+        confirmation_date:{
+            type:Sequelize.DATE,
+            allowNull:true
         },
         confirmation_latter:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:true
         },
         completion_status:{
             type:Sequelize.INTEGER,

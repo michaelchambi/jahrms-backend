@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
 			primaryKey: true,
 		},
 
-        department_id: {
+        data_entry_personel_id: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
@@ -17,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 		},
         display_name:{
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+		is_court:{
 			type: Sequelize.STRING,
 			allowNull: false,
 		},

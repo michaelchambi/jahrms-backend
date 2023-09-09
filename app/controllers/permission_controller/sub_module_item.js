@@ -98,7 +98,7 @@ exports.findOne = (req, res) => {
 
 exports.findAllSubmoduleitem = (req, res) => {
 	const uid = req.body.id;
-    // return console.log('kilichofika ni',req.body)
+  // return console.log('kilichofika ni',req.body)
 app_sub_module.findOne({
     
                 where: {

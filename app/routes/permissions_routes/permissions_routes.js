@@ -80,6 +80,7 @@ router.post("/users/institution-users-list", [authCheck.verifyToken], user_contr
 router.post("/users/activate-user", [authCheck.verifyToken], user_controller.activate);
 router.post("/users/deactivate-user", [authCheck.verifyToken], user_controller.deactivate);
 router.post("/users/my-profile", [authCheck.verifyToken], user_controller.myProfile);
+router.get("/hrm-storage-files/employee/:d1r3c7095/:name", user_controller.download);
 
 module.exports = router;
 

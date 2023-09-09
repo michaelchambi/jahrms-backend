@@ -61,7 +61,7 @@ exports.editDistrict= (req, res) => {
 
 exports.findOne = (req, res) => {
     const id = req.body.id;
-    // return console.log('the id is ',id);
+     return console.log('the id is ',id);
     district.findOne({
         where: {
             id: id
@@ -75,6 +75,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
+   
     district.findAll({
         // where: {
         // status:1
@@ -89,6 +90,23 @@ exports.findAll = (req, res) => {
     });
 };
 
+
+exports.findAllRegionDestrict = (req, res) => {
+    const region_id=req.params.id
+    // return console.log('data received is ',req.params);
+    district.findAll({
+        where: {
+        region_id:region_id
+        },
+        order: [
+            ["name", "ASC"]
+        ]
+    }).then((data) => {
+        res.status(200).send(data);
+    }).catch((err) => {
+        res.status(500).send({message: err.message});
+    });
+};
 
 
 

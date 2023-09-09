@@ -6,8 +6,10 @@ const uid = require('uuid');
 const department = db.department;
 
 exports.addDepartment = (req, res) => {
+   // return console.log('data received are ',req.body)
     const department_name = req.body.department_name;
-    const department_code = req.body.department_abbreviation;
+    const department_code = req.body.abbreviation;
+    const department_description = req.body.description;
     const user_id = req.body.user_id;
     if (!req.body.department_name) {
         return res.status(400).send({message: "Department name has not filled."});
@@ -16,9 +18,10 @@ exports.addDepartment = (req, res) => {
         department.create({
             name: department_name,
             data_entry_personel_id: user_id,
-            department_abbreviation: department_code,
+            abbreviation: department_code,
+            description: department_description,
             uid:uid.v4(),
-            status: true
+            active: true
         }).then((data) => {
             res.json({
                 message: data.name + " Successful Created"
@@ -34,7 +37,8 @@ exports.addDepartment = (req, res) => {
 exports.editDepartment = (req, res) => {
     const id = req.body.id;
     const department_name = req.body.department_name;
-    const department_code = req.body.department_abbreviation;
+    const department_code = req.body.abbreviation;
+    const department_description = req.body.description;
     const user_id = req.body.user_id;
     department.findOne({
         where: {
@@ -42,11 +46,12 @@ exports.editDepartment = (req, res) => {
         }
     }).then((data) => {
         data.update({
-          name: department_name,
+            name: department_name,
             data_entry_personel_id: user_id,
-            department_abbreviation: department_code,
-            uid: uid.v4(),
-            status: true
+            abbreviation: department_code,
+            description: department_description,
+            uid:uid.v4(),
+            active: true
           })
            .then((result) => {
             res.status(200).send({
@@ -90,14 +95,14 @@ exports.findAll = (req, res) => {
 };
 
 exports.activate = (req, res) => {
-    const id = req.body.id;
+    const id = req.body.uid;
 
     department.findOne({
         where: {
             id: id
         }
     }).then((data) => {
-        data.update({status: true}).then((result) => {
+        data.update({active: true}).then((result) => {
             res.status(200).send({
                 message: data.name + " Successful activated"
             });
@@ -108,14 +113,16 @@ exports.activate = (req, res) => {
 };
 
 exports.deactivate = (req, res) => {
-    const id = req.body.id;
+   // return console.log('data received are ',req.body)
+
+    const id = req.body.uid;
 
     department.findOne({
         where: {
             id: id
         }
     }).then((data) => {
-        data.update({status: false}).then((result) => {
+        data.update({active: false}).then((result) => {
             res.status(200).send({
                 message: data.name+ " Successful deactivated"
             });
@@ -124,3 +131,23 @@ exports.deactivate = (req, res) => {
         res.status(500).send({message: err.message});
     });
 };
+
+
+exports.mobile_findOne = (req, res) => {
+   // return console.log('data received are ',req.params)
+    const id = req.params.id;
+    department
+      .findOne({
+        where: {
+          id: id,
+        },
+      })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message,
+        });
+      });
+  };

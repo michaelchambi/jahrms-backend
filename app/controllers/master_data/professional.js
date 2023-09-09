@@ -3,22 +3,23 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const station= db.station;
+const professional = db.professional;
 
-exports.addStation= (req, res) => {
-    const station_name = req.body.station_name;
-    const display_name=req.body.display_name;
+exports.addProfessional = (req, res) => {
+    // return console.log('data are ',req.body)
+    const professional_name = req.body.professional_name;
+    const description = req.body.description;
     const user_id = req.body.user_id;
-    if (!req.body.station_name) {
-        return res.status(400).send({message: "Station name has not filled."});
+    if (!req.body.professional_name) {
+        return res.status(400).send({message: "Professional name has not filled."});
 
     } else {
-        station.create({
-            name: station_name,
-            display_name:display_name,
+        professional.create({
+            name: professional_name,
             data_entry_personel_id: user_id,
+            description:description,
             uid:uid.v4(),
-            status: true
+            active: true
         }).then((data) => {
             res.json({
                 message: data.name + " Successful Created"
@@ -31,21 +32,19 @@ exports.addStation= (req, res) => {
 };
 
 
-exports.editStation= (req, res) => {
+exports.editProfessional = (req, res) => {
     const id = req.body.id;
-    const station_name = req.body.station_name;
-    const display_name=req.body.display_name;
-    const user_id = req.body.user_id;
-    station.findOne({
+    const professional_name = req.body.professional_name;
+    const description = req.body.professional_description;
+    professional.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-            name: station_name,
-            display_name:display_name,
-            data_entry_personel_id: user_id,
-            uid:uid.v4(),
+          name: professional_name,
+            professional_description:description,
+            uid: uid.v4(),
             status: true
           })
            .then((result) => {
@@ -62,7 +61,7 @@ exports.editStation= (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.body.id;
     // return console.log('the id is ',id);
-    station.findOne({
+    professional.findOne({
         where: {
             id: id
         }
@@ -75,7 +74,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    station.findAll({
+    professional.findAll({
         // where: {
         // status:1
         // },
@@ -89,13 +88,10 @@ exports.findAll = (req, res) => {
     });
 };
 
-
-
-
 exports.activate = (req, res) => {
     const id = req.body.id;
 
-    station.findOne({
+    professional.findOne({
         where: {
             id: id
         }
@@ -113,7 +109,7 @@ exports.activate = (req, res) => {
 exports.deactivate = (req, res) => {
     const id = req.body.id;
 
-    station.findOne({
+    professional.findOne({
         where: {
             id: id
         }
@@ -127,3 +123,23 @@ exports.deactivate = (req, res) => {
         res.status(500).send({message: err.message});
     });
 };
+
+
+exports.mobile_findOne = (req, res) => {
+    // return console.log('data received are ',req.body)
+    const id = req.params.id;
+    professional
+      .findOne({
+        where: {
+          id: id,
+        },
+      })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message,
+        });
+      });
+  };

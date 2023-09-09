@@ -3,20 +3,25 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const designation= db.designation;
+const designation= db.api_designation;
 
 exports.addDesignation= (req, res) => {
-    const designation_name = req.body.designation_name;
-    const designation_code = req.body.designation_abbreviation;
+     //return console.log('data receioved ',req.body)
+    const designation_name = req.body.name;
+    const description = req.body.description;
+    const designation_code = req.body.abbreviation;
+    const carder_id = req.body.carder_id;
     const user_id = req.body.user_id;
-    if (!req.body.designation_name) {
+    if (!req.body.name) {
         return res.status(400).send({message: "Designationname has not filled."});
 
     } else {
         designation.create({
             name: designation_name,
-            data_entry_personel_id: user_id,
-            designation_abbreviation: designation_code,
+            registrar_id: user_id,
+            cadre_id: carder_id,
+            abbreviation: designation_code,
+            descriptin:description,
             uid:uid.v4(),
             status: true
         }).then((data) => {

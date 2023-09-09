@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			primaryKey: true,
 		},
-        incharge_title_id: {
+		data_entry_personel_id: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
@@ -14,14 +14,15 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-        display_name:{
+        description:{
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-        is_court:{
+		abbreviation:{
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
+        
         uid: {
 			type: Sequelize.STRING,
 			allowNull: false,

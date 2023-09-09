@@ -235,6 +235,7 @@ exports.activePermissions = (req, res) => {
         module.push({ module_id: module_data.id });
       }
 
+      
       for (const key in data) {
         const submodule_data = data[key].app_sub_modules;
 

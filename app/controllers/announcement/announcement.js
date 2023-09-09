@@ -34,7 +34,7 @@ function file_codegenerator(length) {
 const datetime = new Date();
 
 exports.addAannouncement = (req, res) => {
-  //  return console.log('received data are ',req.body)
+  //  return console.log('received data are ',req.files)
   const fileUrl = req.files.fileUrl;
   const extensionName = path.extname(fileUrl.name);
   const allowedExtension = [".png",".jpg","jpeg",".webp"];
