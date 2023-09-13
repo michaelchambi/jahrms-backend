@@ -3,22 +3,23 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const unit= db.unit;
+const dependant_type = db.dependant_type;
 
-exports.addUnit = (req, res) => {
-    const unit_name = req.body.unit_name;
-    const unit_description = req.body.description;
-    const unit_code = req.body.abbreviation;
+exports.addDependant_type = (req, res) => {
+
+// return console.log('data received are ',req.body)
+
+    const dependant_type_name = req.body.name;
+    const description = req.body.dependant_description;
     const user_id = req.body.user_id;
-    if (!req.body.unit_name) {
-        return res.status(400).send({message: "Unit name has not filled."});
+    if (!req.body.name) {
+        return res.status(400).send({message: "Dependant type name has not filled."});
 
     } else {
-        unit.create({
-            name: unit_name,
+        dependant_type.create({
+            name: dependant_type_name,
             data_entry_personel_id: user_id,
-            abbreviation: unit_code,
-            description: unit_description,
+            description:description,
             uid:uid.v4(),
             status: true
         }).then((data) => {
@@ -33,24 +34,22 @@ exports.addUnit = (req, res) => {
 };
 
 
-exports.editUnit = (req, res) => {
+exports.editDependant_type = (req, res) => {
     const id = req.body.id;
-    const unit_name = req.body.unit_name;
-    const unit_description = req.body.description;
-    const unit_code = req.body.abbreviation;
+    const dependant_type_name = req.body.dependant_type_name;
+    const description = req.body.dependant_description;
     const user_id = req.body.user_id;
-    unit.findOne({
+    dependant_type.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-            name: unit_name,
+            name: dependant_type_name,
             data_entry_personel_id: user_id,
-            abbreviation: unit_code,
-            description: unit_description,
+            qualification_description:description,
             uid:uid.v4(),
-            status: true
+            active: true
           })
            .then((result) => {
             res.status(200).send({
@@ -66,7 +65,7 @@ exports.editUnit = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.body.id;
     // return console.log('the id is ',id);
-    unit.findOne({
+    dependant_type.findOne({
         where: {
             id: id
         }
@@ -79,7 +78,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    unit.findAll({
+    dependant_type.findAll({
         // where: {
         // status:1
         // },
@@ -99,7 +98,7 @@ exports.findAll = (req, res) => {
 exports.activate = (req, res) => {
     const id = req.body.id;
 
-    unit.findOne({
+    dependant_type.findOne({
         where: {
             id: id
         }
@@ -117,7 +116,7 @@ exports.activate = (req, res) => {
 exports.deactivate = (req, res) => {
     const id = req.body.id;
 
-    unit.findOne({
+    dependant_type.findOne({
         where: {
             id: id
         }

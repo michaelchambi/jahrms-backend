@@ -6,16 +6,26 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
             autoIncrement:true
         },
+        created_by_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+        },
         employee_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+            unique: true,
+        },
+        designation_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
         },
         check_number:{
-            type:Sequelize.INTEGER,
-            allowNull:true
+            type:Sequelize.BIGINT,
+            allowNull:true,
+            
         },
        pf_number:{
-            type:Sequelize.INTEGER,
+            type:Sequelize.BIGINT,
             allowNull:true
         },
         confirmation_date:{
@@ -40,13 +50,17 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:true
         },
         completion_status:{
-            type:Sequelize.INTEGER,
+            type:Sequelize.STRING,
             allowNull: false,
             defaultValue:0
         },
 
         uid:{
             type:Sequelize.STRING,
+            allowNull:false,
+        },
+        active:{
+            type:Sequelize.BOOLEAN,
             allowNull:false,
         },
        

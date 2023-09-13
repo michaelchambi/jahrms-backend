@@ -69,23 +69,23 @@ exports.organization_update = (req, res) => {
 		});
 };
 
-exports.get_organization = (req, res) => {
-	organization
-		.findAll()
-		.then(data => {
-			res.status(200).json({
-				en_message: "List of organization found",
-				sw_message: "Orodha ya taasisi zilizopatikana",
-				data: data,
-			});
-		})
-		.catch(err => {
-			res.status(500).json({
-				en_message: "Something went wrong, Kindly try again",
-				sw_message: "Kuna kitu hakipo sawa, Jaribu tena baadae",
-			});
-		});
-};
+// exports.get_organization = (req, res) => {
+// 	organization
+// 		.findAll()
+// 		.then(data => {
+// 			res.status(200).json({
+// 				en_message: "List of organization found",
+// 				sw_message: "Orodha ya taasisi zilizopatikana",
+// 				data: data,
+// 			});
+// 		})
+// 		.catch(err => {
+// 			res.status(500).json({
+// 				en_message: "Something went wrong, Kindly try again",
+// 				sw_message: "Kuna kitu hakipo sawa, Jaribu tena baadae",
+// 			});
+// 		});
+// };
 
 exports.show_organization = (req, res) => {
 	const code = req.params.code;

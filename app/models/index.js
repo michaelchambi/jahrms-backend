@@ -48,6 +48,7 @@ db.scope_station=require("./user_model/scope_station")(sequelize, Sequelize);
 db.unit=require("./user_model/unit")(sequelize, Sequelize);
 db.section=require("./user_model/section")(sequelize, Sequelize);
 db.bank=require("./bank/bank")(sequelize, Sequelize);
+db.skill=require("./user_model/skill")(sequelize,Sequelize)
 db.bank_details=require("./user_model/other_personal_details/bank_details")(sequelize, Sequelize);
 
 // =============================================================================
@@ -88,7 +89,6 @@ db.professional=require("./user_model/other_personal_details/professional")(sequ
 db.working_station_details=require("./user_model/other_personal_details/working_station_details")(sequelize, Sequelize);
 db.qualification=require("./user_model/other_personal_details/qualification")(sequelize, Sequelize);
 db.qualification_grade=require("./user_model/other_personal_details/qualification_grade")(sequelize, Sequelize);
-
 //====================================================
 // START OF MODULE/MODULE_PERMISSION/ROLE RELATION
 //====================================================

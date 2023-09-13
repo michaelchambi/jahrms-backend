@@ -11,6 +11,30 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
 
+       address_number: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+       
+        post_code: {
+            type: Sequelize.BIGINT,
+            allowNull: false,
+        },
+
+        phone_number: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+        road_name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        email_address: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
         name: {
             type: Sequelize.STRING,
             allowNull: false,

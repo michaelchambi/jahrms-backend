@@ -73,7 +73,7 @@ app.use(
 // ROUTES & ROUTES -- CONNECTIONS
 // =============================================================================
 const route = require("./app/routes/start_routes/route");
-const general = require("./app/routes/general_routes/general_route");
+
 const auth = require("./app/routes/auth_routes/auth_route");
 const permissions = require("./app/routes/permissions_routes/permissions_routes");
 const court_level = require("./app/routes/master_data_routes/court_level");
@@ -93,13 +93,15 @@ const section= require("./app/routes/master_data_routes/section");
 const station= require("./app/routes/master_data_routes/station");
 const scope= require("./app/routes/master_data_routes/scope");
 const leave_type = require("./app/routes/master_data_routes/leave_type");
+const dependant_type = require("./app/routes/master_data_routes/dependant_type");
 const qualification_grade = require("./app/routes/master_data_routes/qualification_grade");
 const cadre = require("./app/routes/master_data_routes/cadre");
 const professional = require("./app/routes/master_data_routes/professional");
+const skill = require("./app/routes/master_data_routes/skill");
+const employmentInfo = require("./app/routes/master_data_routes/employee/employee-info");
 
 
 app.use(url_use + api_version, route);
-app.use(url_use + api_version, general);
 app.use(url_use + api_version, auth);
 app.use(url_use + api_version, permissions);
 app.use(url_use + api_version, court_level);
@@ -120,8 +122,11 @@ app.use(url_use + api_version, section);
 app.use(url_use + api_version, scope);
 app.use(url_use + api_version, station);
 app.use(url_use + api_version, leave_type);
+app.use(url_use + api_version, dependant_type);
 app.use(url_use + api_version, cadre);
+app.use(url_use + api_version, skill);
 app.use(url_use + api_version, professional);
+app.use(url_use + api_version, employmentInfo);
 
 // =============================================================================
 // set port, listen for requests

@@ -3,28 +3,45 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const station= db.station;
+const station= db.nj_work_station;
 
 exports.addStation= (req, res) => {
+    //return console.log('data received are ',req.body)
+    const phone_number=req.body.phone_number;
+    const road_name=req.body.road_name;
+    const email_address=req.body.email_address;
+    const post_code=req.body.post_code;
+    const address_number=req.body.address_number;
+
     const station_name = req.body.station_name;
     const display_name=req.body.display_name;
     const user_id = req.body.user_id;
+    const district = req.body.district_id;
+    const station_code = req.body.abbreviation;
     if (!req.body.station_name) {
         return res.status(400).send({message: "Station name has not filled."});
 
     } else {
         station.create({
+            phone_number:phone_number,
+            road_name:road_name,
+            email_address:email_address,
+            post_code:post_code,
+            address_number:address_number,
             name: station_name,
             display_name:display_name,
             data_entry_personel_id: user_id,
-            uid:uid.v4(),
-            status: true
+            district_id:district,
+            code:station_code,
+            uid:uid.v4()
         }).then((data) => {
-            res.json({
-                message: data.name + " Successful Created"
+            res.status(200).json({
+                sw_message: "Successful Created",
+                data: data
             });
 
         }).catch((err) => {
+
             res.status(500).send({message: err.errors});
         });
     }

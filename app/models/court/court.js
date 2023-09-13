@@ -4,8 +4,33 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BIGINT,
             autoIncrement: true,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            unique: true,
         },
+       address_number: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+       
+        post_code: {
+            type: Sequelize.BIGINT,
+            allowNull: true,
+        },
+
+        phone_number: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+
+        road_name: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        email_address: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+
 
         name: {
             type: Sequelize.STRING,
@@ -47,6 +72,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BIGINT,
             allowNull: true,
         },
+        uid: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+       
       
        
     });

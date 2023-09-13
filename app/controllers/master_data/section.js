@@ -7,16 +7,20 @@ const section= db.section;
 
 exports.addSection= (req, res) => {
     const section_name = req.body.section_name;
-    const section_code = req.body.section_abbreviation;
+    const section_code = req.body.abbreviation;
     const user_id = req.body.user_id;
+    const department=req.body.department_id;
+    const description=req.body.description;
     if (!req.body.section_name) {
-        return res.status(400).send({message: "Sectionname has not filled."});
+        return res.status(400).send({message: "Section name has not filled."});
 
     } else {
         section.create({
             name: section_name,
             data_entry_personel_id: user_id,
-            section_abbreviation: section_code,
+            abbreviation: section_code,
+            department_id:department,
+            description:description,
             uid:uid.v4(),
             status: true
         }).then((data) => {
@@ -34,18 +38,22 @@ exports.addSection= (req, res) => {
 exports.editSection= (req, res) => {
     const id = req.body.id;
     const section_name = req.body.section_name;
-    const section_code = req.body.section_abbreviation;
+    const section_code = req.body.abbreviation;
     const user_id = req.body.user_id;
+    const department=req.body.department_id;
+    const description=req.body.description;
     section.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-          name: section_name,
+            name: section_name,
             data_entry_personel_id: user_id,
-            section_abbreviation: section_code,
-            uid: uid.v4(),
+            abbreviation: section_code,
+            department_id:department,
+            description:description,
+            uid:uid.v4(),
             status: true
           })
            .then((result) => {

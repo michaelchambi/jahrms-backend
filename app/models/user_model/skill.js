@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const dependant_type = sequelize.define("dependant_type", {
+    const skill = sequelize.define("skill", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
@@ -8,22 +8,21 @@ module.exports = (sequelize, Sequelize) => {
         },
         data_entry_personel_id:{
             type:Sequelize.INTEGER,
-            allowNull:false
+            allowNull:false,
         },
-       name:{
+        name:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:false,
         },
         description:{
             type:Sequelize.TEXT,
             allowNull:false,
-            defaultValue:false
-
         },
-
-      status:{
+      
+       active:{
             type:Sequelize.BOOLEAN,
-            allowNull:false,
+            allowNull: false,
+            defaultValue:true
         },
     
         uid:{
@@ -33,5 +32,5 @@ module.exports = (sequelize, Sequelize) => {
        
     });
   
-    return dependant_type;
+    return skill;
   };

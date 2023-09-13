@@ -98,7 +98,8 @@ exports.signup = (req, res) => {
         marital_status:marital_status,
         employee_passport:file_abreviation + file_codegenerator(6) + passportExtensionName,
         birth_certificate:file_abreviation + file_codegenerator(6) + birthCertificateExtensionName,
-        name: capitalize(fullname),
+        // name: capitalize(fullname),
+        name: fullname.toUpperCase(),
         email: email,
         phone_number: phone,
         national_id: national_id,
@@ -195,11 +196,15 @@ exports.findOneOnly = (req, res) => {
         })
         
         .then(data => {
-            
+             const today_date=new Date();
+             const birtdate=data.birth_date;
+             const date_diff=Math.abs(today_date.getTime() - birtdate.getTime());
+             const age=Math.ceil(date_diff/( (1000 * 3600 * 24*366)))
+             const combined_data={data,age}
                     res.status(200).json({
                         en_message: "User details found",
                         sw_message: "Employee Details",
-                        data: data
+                        data: combined_data
                     });
         })
 
