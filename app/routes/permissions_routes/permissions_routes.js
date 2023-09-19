@@ -39,6 +39,7 @@ router.post("/sub-modules-item/add-submodule-item", [authCheck.verifyToken], sub
 router.get("/sub-modules-item/sub-modules-item", [authCheck.verifyToken], submodule_item_controller.findAll);
 router.post("/sub-modules-item/sub-module-item/show", [authCheck.verifyToken], submodule_item_controller.findOne);
 router.post("/sub-modules-item/sub-module-item/showSubmoduleItems", [authCheck.verifyToken], submodule_item_controller.findAllSubmoduleitem);
+router.post("/sub-modules-item/sub-module-item/showSubmoduleItemsBySelect", [authCheck.verifyToken], submodule_item_controller.findAllSubmoduleitemBySelection);
 router.post("/sub-modules-item/find-sub-module-item", [authCheck.verifyToken], submodule_item_controller.submodule);
 router.post("/sub-modules-item/edit-sub-module-item", [authCheck.verifyToken], submodule_item_controller.edit);
 router.post("/sub-modules-item/activate-sub-module-item", [authCheck.verifyToken], submodule_item_controller.activate);
@@ -72,11 +73,14 @@ router.post("/roles/deactivate-role", [authCheck.verifyToken], role_controller.d
 router.post("/users/add-user", [authCheck.verifyToken], [authCheck.userExistance], user_controller.signup);
 router.post("/users/edit-user", [authCheck.verifyToken], user_controller.edit, [authCheck.checkActiveComplaint], [authCheck.checkActiveAppeal]);
 router.post("/users/user/show", [authCheck.verifyToken], user_controller.findOne);
+router.post("/users/showWithId", [authCheck.verifyToken], user_controller.findOneWithId);
 router.get("/users/show/:id", [authCheck.verifyToken], user_controller.findOneOnly);
 router.get("/users/totalEmployee", [authCheck.verifyToken], user_controller.countMyEmployee);
 router.get("/users", [authCheck.verifyToken], user_controller.getAllUsers);
-router.post("/users/users-list", [authCheck.verifyToken], user_controller.organization_users_list);
-router.post("/users/institution-users-list", [authCheck.verifyToken], user_controller.userList);
+router.post("/users/add-user-roles", [authCheck.verifyToken], user_controller.addUserRoles);
+
+// router.post("/users/users-list", [authCheck.verifyToken], user_controller.organization_users_list);
+// router.post("/users/institution-users-list", [authCheck.verifyToken], user_controller.userList);
 router.post("/users/activate-user", [authCheck.verifyToken], user_controller.activate);
 router.post("/users/deactivate-user", [authCheck.verifyToken], user_controller.deactivate);
 router.post("/users/my-profile", [authCheck.verifyToken], user_controller.myProfile);

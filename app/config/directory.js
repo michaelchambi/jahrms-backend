@@ -70,12 +70,12 @@ module.exports = {
                                 status: true
                             }).then((info) => { // return console.log('user id niliyopokea ni ',data,info);
                                 user_profile.create({
-                                    userId: data.id,
+                                    user_id: data.id,
                                     court_id: 40,
                                     designationId: info.id
                                 }).then((roleData) => {
                                     cfg_user_roles.create({
-                                        userId: data.id,
+                                        user_id: data.id,
                                         role_id: role_result.id
                                     })
                                 })

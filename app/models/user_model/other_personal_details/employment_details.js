@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         designation_id:{
             type:Sequelize.INTEGER,
-            allowNull:false,
+            allowNull:true,
         },
         check_number:{
             type:Sequelize.BIGINT,

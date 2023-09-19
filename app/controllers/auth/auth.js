@@ -102,7 +102,7 @@ exports.signin = (req, res) => {
 
 			if (data && passwordIsValid && token) {
 				role_user.findOne({where: {
-					userId: data.id,
+					user_id: data.id,
 				},include: [
 					{ model: role}]
 				})

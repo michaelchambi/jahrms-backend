@@ -59,7 +59,7 @@ verifyToken = (req, res, next) => {
 				token: 0,
 			});
 		}
-		req.userId = decoded.id;
+		req.user_id = decoded.id;
 		next();
 	});
 };

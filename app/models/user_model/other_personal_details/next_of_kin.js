@@ -39,13 +39,6 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.STRING,
             allowNull:true,
         },
-      
-        completion_status:{
-            type:Sequelize.INTEGER,
-            allowNull: false,
-            defaultValue:0
-        },
-    
         uid:{
             type:Sequelize.STRING,
             allowNull:false,

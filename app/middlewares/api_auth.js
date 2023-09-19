@@ -25,7 +25,7 @@ verifyToken = (req, res, next) => {
 				sw_message: "Session Imekwisha muda..!",
 			});
 		}
-		req.userId = decoded.id;
+		req.user_id = decoded.id;
 		next();
 	});
 };

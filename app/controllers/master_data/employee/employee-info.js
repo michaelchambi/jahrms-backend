@@ -13,6 +13,10 @@ const Op = db.Sequelize.Op;
 const uid = require('uuid');
 const employment_inf = db.employment_details
 const users = db.users;
+const staff_profile = db.api_staff_profile;
+const designation_history = db.designation_history;
+const station_details = db.working_station_details;
+const bank_details = db.bank_details;
 const role_user = db.role_user;
 const roles = db.roles;
 const axios = require("axios").default;
@@ -40,9 +44,9 @@ function file_codegenerator(length) {
 }
 
 
-exports.addEmploymentInfo = (req, res) => { 
+exports.addEmploymentInfo = (req, res) => {
     //return console.log('data received are ',req.body,req.files)
-    const hired_letter = req.files.hired_latter;;
+    const hired_letter = req.files.hired_latter;
     const hired_letterNameExtensionName = path.extname(hired_letter.name);
     const allowedhired_latterExtension = [".pdf"];
 
@@ -59,80 +63,111 @@ exports.addEmploymentInfo = (req, res) => {
     const hiring_date = req.body.hired_date;
     const confirmation_date = req.body.confirmation_date;
     const designation = req.body.designation_id;
-    const roles = parseInt(req.body.roles);
+    // const roles = parseInt(req.body.roles);
     const user_id = req.body.user_id;
     const employee_id = req.body.employee_id;
     if (!req.body.check_number) {
-        return res.status(400).send({message: "Check Number name has not filled."});
+        return res.status(400).send({
+            message: "Check Number name has not filled."
+        });
 
     } else {
 
         if (!req.files || Object.keys(req.files).length === 0) {
-            return res.status(400).send({message: "No files were uploaded."});
-        } else if (! allowedhired_latterExtension.includes(hired_letterNameExtensionName) || ! allowedBirthCertificateExtension.includes(confirmation_letterExtensionName)) {
-            return res.status(422).send({message: "Invalid File | check your File format"});
+            return res.status(400).send({
+                message: "No files were uploaded."
+            });
+        } else if (!allowedhired_latterExtension.includes(hired_letterNameExtensionName) || !allowedBirthCertificateExtension.includes(confirmation_letterExtensionName)) {
+            return res.status(422).send({
+                message: "Invalid File | check your File format"
+            });
         } else {
 
 
-          employment_inf
-            .create({
-                created_by_id:parseInt(user_id),
-                employee_id: parseInt(employee_id),
-                designation_id:parseInt(designation),
-                check_number: parseInt(check_numbers),
-                pf_number: parseInt(pf_numbers),
-                confirmation_date: confirmation_date,
-                hired_date: hiring_date,
-                hiring_latter: file_abreviation + file_codegenerator(6) +hired_letterNameExtensionName, 
-                confirmation_date: confirmation_date,
-                confirmation_latter: file_abreviation + file_codegenerator(6) + confirmation_letterExtensionName,
-                completion_status: 'INCOMPLETE',
-                uid: uid.v4(),
-                active: true
-            })
-            .then(user_info => {
-                for (const key in roles) {
-                    const role_data = roles[key];
-                    role_user.create({role_id: role_data, userId: user_id});
-                }
-                const hiring_latter_path = employee_folder_path +personal_folder;
-                const first_employment_letter = user_info.hiring_latter;
-                fs.mkdirSync(hiring_latter_path, { recursive: true });
-                hired_letter.mv(path.join(hiring_latter_path, first_employment_letter), (err) => {
-                  if (err) {
-                    return res.status(500).send({
-                      message: "No such file or directory" + err,
+            employment_inf
+                .create({
+                    created_by_id: user_id,
+                    employee_id: employee_id,
+                    designation_id: designation,
+                    check_number: check_numbers,
+                    pf_number: pf_numbers,
+                    confirmation_date: confirmation_date,
+                    hired_date: hiring_date,
+                    hiring_latter: file_abreviation + file_codegenerator(6) + hired_letterNameExtensionName,
+                    confirmation_date: confirmation_date,
+                    confirmation_latter: file_abreviation + file_codegenerator(6) + confirmation_letterExtensionName,
+                    completion_status: 'COMPLETE',
+                    uid: uid.v4(),
+                    active: true
+                })
+                .then(user_info => {
+                    staff_profile.create({
+                        user_id: employee_id,
+                        designation_id: designation,
+                        completion_status: 'INCOMPLETE'
+                    })
+                    designation_history.create({
+                        designation_id: designation,
+                        employee_id: employee_id,
+                        Assignment_date: hiring_date,
+                        registrar_id: user_id,
+                        uid: uid.v4(),
+                        completion_status: 'COMPLETE',
+                    })
+                    station_details.create({
+                        user_id: user_id,
+                        employee_id: employee_id,
+                        completion_status: 'INCOMPLETE',
+                        uid: uid.v4()
+                    })
+                   
+                    const hiring_latter_path = employee_folder_path + personal_folder;
+                    const first_employment_letter = user_info.hiring_latter;
+                    fs.mkdirSync(hiring_latter_path, {
+                        recursive: true
                     });
-                  }
-                });
-        
-                const confirmation_letter_file_path = employee_folder_path + personal_folder;;
-                const confirmation_letter_filename = user_info.confirmation_latter;
-                fs.mkdirSync(confirmation_letter_file_path, { recursive: true });
-                confirmation_letter.mv(path.join(confirmation_letter_file_path, confirmation_letter_filename), (err) => {
-                  if (err) {
-                    return res.status(500).send({
-                      message: "No such file or directory" + err,
+                    hired_letter.mv(path.join(hiring_latter_path, first_employment_letter), (err) => {
+                        if (err) {
+                            return res.status(500).send({
+                                message: "No such file or directory" + err,
+                            });
+                        }
                     });
-                  }
+
+                    const confirmation_letter_file_path = employee_folder_path + personal_folder;;
+                    const confirmation_letter_filename = user_info.confirmation_latter;
+                    fs.mkdirSync(confirmation_letter_file_path, {
+                        recursive: true
+                    });
+                    confirmation_letter.mv(path.join(confirmation_letter_file_path, confirmation_letter_filename), (err) => {
+                        if (err) {
+                            return res.status(500).send({
+                                message: "No such file or directory" + err,
+                            });
+                        }
+                    });
+                    // for (const key in roles) {
+                    //     const role_data = roles[key];
+                    //     role_user.create({role_id: role_data, user_id:user_info.employee_id});
+                    // }
+                    res.json({
+                        message: 'Employment Details Added' + " Successfully",
+                    });
+
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message: err.message,
+                        'code': 0
+                    });
                 });
-                res.json({
-                  message:'Birth Certificate '+" Successful Added",
-                });
-        
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err,
-                    'code': 0
-                });
-            });
-               
-        
-            }
-            
-        
-}};
+
+
+        }
+
+
+    }
+};
 
 
 exports.editEmploymentInfo = (req, res) => {
@@ -157,7 +192,9 @@ exports.editEmploymentInfo = (req, res) => {
             });
         })
     }).catch((err) => {
-        res.status(500).send({message: err.message});
+        res.status(500).send({
+            message: err.message
+        });
     });
 };
 
@@ -167,12 +204,14 @@ exports.findOne = (req, res) => {
     // return console.log('the id is ',id);
     employment_inf.findOne({
         where: {
-            id: id
+            employee_id: id
         }
     }).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
-        res.status(500).send({message: err.message});
+        res.status(500).send({
+            message: err.message
+        });
     });
 };
 
@@ -188,7 +227,9 @@ exports.findAll = (req, res) => {
     }).then((data) => {
         res.status(200).send(data);
     }).catch((err) => {
-        res.status(500).send({message: err.message});
+        res.status(500).send({
+            message: err.message
+        });
     });
 };
 
@@ -201,13 +242,17 @@ exports.activate = (req, res) => {
             id: id
         }
     }).then((data) => {
-        data.update({status: true}).then((result) => {
+        data.update({
+            status: true
+        }).then((result) => {
             res.status(200).send({
                 message: data.name + " Successful activated"
             });
         })
     }).catch((err) => {
-        res.status(500).send({message: err.message});
+        res.status(500).send({
+            message: err.message
+        });
     });
 };
 
@@ -219,12 +264,16 @@ exports.deactivate = (req, res) => {
             id: id
         }
     }).then((data) => {
-        data.update({status: false}).then((result) => {
+        data.update({
+            status: false
+        }).then((result) => {
             res.status(200).send({
                 message: data.name + " Successful deactivated"
             });
         })
     }).catch((err) => {
-        res.status(500).send({message: err.message});
+        res.status(500).send({
+            message: err.message
+        });
     });
 };

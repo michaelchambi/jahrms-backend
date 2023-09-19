@@ -13,14 +13,14 @@ const app_attachment_titles = db.attachment_titles;
 // APPEAL EXISTANCE MIDDLE WARE
 //===================================
 appealExistance = (req, res, next) => {
-	const userId = req.body.userId;
+	const user_id = req.body.user_id;
 	const organization_id = req.body.organization_id;
 	const punishment_id = req.body.punishment_id;
 	const punishment_date = req.body.punishment_date;
 	app_appeal
 		.findOne({
 			where: {
-				created_by: userId,
+				created_by: user_id,
 				organization_id: organization_id,
 				punishment_types_id: punishment_id,
 				punishment_date: punishment_date,

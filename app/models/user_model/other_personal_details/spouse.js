@@ -1,33 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-    const bank_details = sequelize.define("bank_details", {
+    const spouse= sequelize.define("spouse", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
             allowNull:false,
             autoIncrement:true
         },
-       bank_id:{
+        user_id:{
             type:Sequelize.INTEGER,
-            allowNull:true,
+            allowNull:false,
         },
         employee_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        account_name:{
+        spouse_name:{
             type:Sequelize.STRING,
-            allowNull:true
+            allowNull:true,
         },
-        account_number:{
-            type:Sequelize.STRING,
-            allowNull:true
+        spouse_status:{
+            type:Sequelize.BOOLEAN,
+            allowNull:true,
         },
-    
-        completion_status:{
-            type:Sequelize.STRING,
-            allowNull: false,
-        },
-    
+       
         uid:{
             type:Sequelize.STRING,
             allowNull:false,
@@ -35,5 +30,5 @@ module.exports = (sequelize, Sequelize) => {
        
     });
   
-    return bank_details;
+    return spouse;
   };

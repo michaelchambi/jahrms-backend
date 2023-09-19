@@ -282,11 +282,11 @@ exports.activePermissions = (req, res) => {
 };
 
 exports.showModulePermissions = (req, res) => {
-  const userId = req.body.userId;
+  const user_id = req.body.user_id;
   role_user
     .findAll({
       where: {
-        userId: userId,
+        user_id: user_id,
       },
     })
     .then((user) => {
@@ -360,12 +360,12 @@ exports.showModulePermissions = (req, res) => {
 };
 
 exports.showSubPermissions = (req, res) => {
-  const userId = req.body.userId;
+  const user_id = req.body.user_id;
 
   role_user
     .findAll({
       where: {
-        userId: userId,
+        user_id: user_id,
       },
     })
     .then((user) => {
@@ -433,12 +433,12 @@ exports.showSubPermissions = (req, res) => {
 };
 
 exports.showActionPermissions = (req, res) => {
-  const userId = req.body.userId;
+  const user_id = req.body.user_id;
 
   role_user
     .findAll({
       where: {
-        userId: userId,
+        user_id: user_id,
       },
     })
     .then((user) => {
