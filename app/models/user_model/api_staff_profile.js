@@ -6,9 +6,22 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
             autoIncrement:true
         },
+        employee_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+            unique:true,
+        },
+        registrar_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+        },
         court_id:{
             type:Sequelize.STRING,
-            allowNull:false
+            allowNull:true
+        },
+        completion_status:{
+            type:Sequelize.STRING,
+            allowNull:true
         }
     });
   

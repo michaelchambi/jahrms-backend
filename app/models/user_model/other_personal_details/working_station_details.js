@@ -7,34 +7,30 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement:true
         },
         station_id:{
-            type:Sequelize.INTEGER,unique:'compositeIndex',
+            type:Sequelize.INTEGER,
             allowNull:true,
         },
-        station_assignment_date:{
+        assignment_date:{
             type:Sequelize.DATE,
             allowNull:true
         },
         completion_status:{
-            type:Sequelize.INTEGER,
+            type:Sequelize.STRING,
             allowNull: false,
-            defaultValue:0
         },
-        stasion_category:{
-            type:Sequelize.STRING,unique:'compositeIndex',
-            allowNull:true,
+        user_id:{
+            type:Sequelize.INTEGER,
+            allowNull: false
+        },
+        employee_id:{
+            type:Sequelize.INTEGER,
+            allowNull: false
         },
         uid:{
             type:Sequelize.STRING,
             allowNull:false,
         },
-    },
-    {
-        uniqueKeys: {
-            compositeIndex: {
-                fields: ['station_id', 'stasion_category']
-            }
-    }
-})
+    },)
     return working_station_details;
   };
 

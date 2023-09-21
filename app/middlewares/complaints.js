@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config({
 	path: "./app/.env",
 });
+
 const db = require("../models");
 const app_complaints = db.app_complaints;
 
@@ -13,14 +14,14 @@ const app_attachment_titles = db.attachment_titles;
 // COMPLAINT EXISTANCE MIDDLE WARE
 //===================================
 complaintExistance = (req, res, next) => {
-	const userId = req.body.userId;
+	const user_id = req.body.user_id;
 	const organization_id = req.body.organization_id;
 	const punishment_id = req.body.punishment_id;
 	const punishment_date = req.body.punishment_date;
 	app_appeal
 		.findOne({
 			where: {
-				created_by: userId,
+				created_by: user_id,
 				organization_id: organization_id,
 				punishment_types_id: punishment_id,
 				punishment_date: punishment_date,

@@ -264,7 +264,7 @@ exports.changeRoles = (req, res) => {
 			role_user
 				.destroy({
 					where: {
-						userId: data.id,
+						user_id: data.id,
 					},
 				})
 				.then(() => {
@@ -273,7 +273,7 @@ exports.changeRoles = (req, res) => {
 
 						role_user.create({
 							role_id: element,
-							userId: data.id,
+							user_id: data.id,
 						});
 					}
 

@@ -3,21 +3,25 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const bank = db.bank;
-exports.addBank = (req, res) => {
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
-    const user_id = req.body.user_id;
-    if (!req.body.bank_name) {
-        return res.status(400).send({message: "Bank name has not filled."});
+const designation_history = db.designation_history;
+const department=db.department;
+
+exports.addDesignationHistory = (req, res) => {
+    //return console.log('data received are ',req.body)
+    const designation = req.body.designation_id;
+    const employee = req.body.employee_id;
+    const assignment_date= req.body.assignment_date;
+    const user_id= req.body.user_id;
+    if (!req.body.designation_id) {
+        return res.status(400).send({message: "DesignationHistory name has not filled."});
 
     } else {
-        bank.create({
-            name: bank_name,
-            data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
+        designation_history.create({
+            designation_id: designation,
+            employee_id: employee,
+            Assignment_date: assignment_date,
+            registrar_id:user_id,
             uid:uid.v4(),
-            status: true
         }).then((data) => {
             res.json({
                 message: data.name + " Successful Created"
@@ -30,22 +34,23 @@ exports.addBank = (req, res) => {
 };
 
 
-exports.editBank = (req, res) => {
+exports.editDesignationHistory = (req, res) => {
     const id = req.body.id;
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
-    const user_id = req.body.user_id;
-    bank.findOne({
+    const designation = req.body.designation_id;
+    const employee = req.body.employee_id;
+    const assignment_date= req.body.assignment_date;
+    const user_id= req.body.user_id;
+    designation_history.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-          name: bank_name,
-            data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
-            uid: uid.v4(),
-            status: true
+            designation_id: designation,
+            employee_id: employee,
+            Assignment_date: assignment_date,
+            registrar_id:user_id,
+            uid:uid.v4(),
           })
            .then((result) => {
             res.status(200).send({
@@ -61,7 +66,7 @@ exports.editBank = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.body.id;
     // return console.log('the id is ',id);
-    bank.findOne({
+    designation_history.findOne({
         where: {
             id: id
         }
@@ -74,10 +79,8 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    bank.findAll({
-        // where: {
-        // status:1
-        // },
+    designation_history.findAll({
+        include:[{model:department}],
         order: [
             ["name", "ASC"]
         ]
@@ -89,9 +92,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.activate = (req, res) => {
-    const id = req.body.id;
+    const id = req.body.uid;
 
-    bank.findOne({
+    designation_history.findOne({
         where: {
             id: id
         }
@@ -107,8 +110,11 @@ exports.activate = (req, res) => {
 };
 
 exports.deactivate = (req, res) => {
-    const id = req.body.id;
-    bank.findOne({
+   // return console.log('data received are ',req.body)
+
+    const id = req.body.uid;
+
+    designation_history.findOne({
         where: {
             id: id
         }
@@ -124,4 +130,21 @@ exports.deactivate = (req, res) => {
 };
 
 
- 
+exports.mobile_findOne = (req, res) => {
+   // return console.log('data received are ',req.params)
+    const id = req.params.id;
+    designation_history
+      .findOne({
+        where: {
+          id: id,
+        },
+      })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message,
+        });
+      });
+  };

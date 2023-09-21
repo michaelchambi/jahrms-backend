@@ -1,40 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-    const bank_details = sequelize.define("bank_details", {
+    const dependant_attachment= sequelize.define("dependant_attachment", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
             allowNull:false,
             autoIncrement:true
         },
-       bank_id:{
-            type:Sequelize.INTEGER,
-            allowNull:true,
-        },
-        employee_id:{
+        attachment_type_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
-            unique:true
         },
-        account_name:{
-            type:Sequelize.STRING,
-            allowNull:true
+        dependant_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
         },
-        account_number:{
+        file_name:{
             type:Sequelize.STRING,
             allowNull:true,
-            unique:true
         },
-    
-        card_copy:{
-            type:Sequelize.STRING,
-            allowNull:true
+        spouse_status:{
+            type:Sequelize.BOOLEAN,
+            allowNull:true,
         },
        
-        status:{
-            type:Sequelize.STRING,
-            allowNull: false,
-        },
-    
         uid:{
             type:Sequelize.STRING,
             allowNull:false,
@@ -42,5 +30,5 @@ module.exports = (sequelize, Sequelize) => {
        
     });
   
-    return bank_details;
+    return dependant_attachment;
   };

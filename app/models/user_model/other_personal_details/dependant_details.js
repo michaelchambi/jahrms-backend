@@ -10,16 +10,37 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        name:{
+        dependant_type_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+        },
+        first_name:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+        middle_name:{
             type:Sequelize.STRING,
             allowNull:true
         },
 
-        completion_status:{
-            type:Sequelize.INTEGER,
-            allowNull: false,
-            defaultValue:0
+        last_name:{
+            type:Sequelize.STRING,
+            allowNull:true
         },
+        birth_certificate_number:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+        birth_date:{
+            type:Sequelize.DATE,
+            allowNull:true
+        },
+
+        status:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+       
         uid:{
             type:Sequelize.STRING,
             allowNull:false,

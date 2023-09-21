@@ -1,51 +1,28 @@
 const dotenv = require("dotenv");
 dotenv.config();
-const db = require("../../models");
+const db = require("../../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
-const bank = db.bank;
-exports.addBank = (req, res) => {
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
-    const user_id = req.body.user_id;
-    if (!req.body.bank_name) {
-        return res.status(400).send({message: "Bank name has not filled."});
-
-    } else {
-        bank.create({
-            name: bank_name,
-            data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
-            uid:uid.v4(),
-            status: true
-        }).then((data) => {
-            res.json({
-                message: data.name + " Successful Created"
-            });
-
-        }).catch((err) => {
-            res.status(500).send({message: err.errors});
-        });
-    }
-};
+const spouse = db.spouse;
 
 
-exports.editBank = (req, res) => {
+
+exports.editSpouse = (req, res) => {
     const id = req.body.id;
-    const bank_name = req.body.bank_name;
-    const bank_code = req.body.bank_abbreviation;
+    const spouse_name = req.body.name;
+    const employee_id = req.body.employee_id;
     const user_id = req.body.user_id;
-    bank.findOne({
+    spouse.findOne({
         where: {
             id: id
         }
     }).then((data) => {
         data.update({
-          name: bank_name,
-            data_entry_personel_id: user_id,
-            bank_abbreviation: bank_code,
-            uid: uid.v4(),
-            status: true
+            user_id:user_id,
+            employee_id: employee_id,
+            spouse_name: spouse_name,
+            uid:uid.v4(),
+            spouse_status: true
           })
            .then((result) => {
             res.status(200).send({
@@ -61,7 +38,7 @@ exports.editBank = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.body.id;
     // return console.log('the id is ',id);
-    bank.findOne({
+    spouse.findOne({
         where: {
             id: id
         }
@@ -74,7 +51,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    bank.findAll({
+    spouse.findAll({
         // where: {
         // status:1
         // },
@@ -91,12 +68,12 @@ exports.findAll = (req, res) => {
 exports.activate = (req, res) => {
     const id = req.body.id;
 
-    bank.findOne({
+    spouse.findOne({
         where: {
             id: id
         }
     }).then((data) => {
-        data.update({status: true}).then((result) => {
+        data.update({spouse_status: true}).then((result) => {
             res.status(200).send({
                 message: data.name + " Successful activated"
             });
@@ -108,12 +85,13 @@ exports.activate = (req, res) => {
 
 exports.deactivate = (req, res) => {
     const id = req.body.id;
-    bank.findOne({
+
+    spouse.findOne({
         where: {
             id: id
         }
     }).then((data) => {
-        data.update({status: false}).then((result) => {
+        data.update({spouse_status: false}).then((result) => {
             res.status(200).send({
                 message: data.name+ " Successful deactivated"
             });
@@ -122,6 +100,3 @@ exports.deactivate = (req, res) => {
         res.status(500).send({message: err.message});
     });
 };
-
-
- 

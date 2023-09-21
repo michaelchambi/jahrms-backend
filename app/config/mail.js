@@ -40,7 +40,7 @@ module.exports = {
 		return (mailOptions = {
 			from: '"Judiciary Of Tanzania" <info@judiciary.go.tz>',
 			to: email,
-			subject: "HRM ACCOUNT",
+			subject: "JAHRMS ACCOUNT",
 			text: 'Hey there, it mail from Judiciary of Tanzania',
 			html:
 				"Hi! <b>" +
@@ -51,7 +51,7 @@ module.exports = {
 				password +
 				"</b><br><br><a href='" +
 				process.env.portal_link +
-				"' style='background-color: #008CBA; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block;'>JOT-MIS Portal</a> <br> <br>For more information</p><br><b>JUDICIARY OF TANZANIA,</b><br>Jengo la Chimwaga (UDOM), Ghorofa ya 2<br>2 Barabara ya UDOM <br>S.L.P 9004,<br>40405 DAR ES SALAAM<br>Tanzania<br>+255 XXXXX / +255 XXXXXX<br>info@judiciary.go.tz<br>www.judiciary.go.tz.",
+				"' style='background-color: #008CBA; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block;'>JAHRM System</a> <br> <br>For more information</p><br><b>JUDICIARY OF TANZANIA,</b><br>Jengo la Chimwaga (UDOM), Ghorofa ya 2<br>2 Barabara ya UDOM <br>S.L.P 9004,<br>40405 DAR ES SALAAM<br>Tanzania<br>+255 XXXXX / +255 XXXXXX<br>info@judiciary.go.tz<br>www.judiciary.go.tz.",
 		});
 	},
     USER_FORGOT_PASSWORD_MAIL(email, fullname, password) {
@@ -69,7 +69,7 @@ module.exports = {
 				password +
 				"</b><br><br><a href='" +
 				process.env.portal_link +
-				"' style='background-color: #008CBA; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block;'>JOT-MIS Portal</a> <br> <br>For more information</p><br><b>JUDICIARY OF TANZANIA,</b><br>Jengo la Chimwaga (UDOM), Ghorofa ya 2<br>2 Barabara ya UDOM <br>S.L.P 9004,<br>40405 DAR ES SALAAM<br>Tanzania<br>+255 XXXXX / +255 XXXXXX<br>info@judiciary.go.tz<br>www.judiciary.go.tz.",
+				"' style='background-color: #008CBA; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block;'>JAHRM System</a> <br> <br>For more information</p><br><b>JUDICIARY OF TANZANIA,</b><br>Jengo la Chimwaga (UDOM), Ghorofa ya 2<br>2 Barabara ya UDOM <br>S.L.P 9004,<br>40405 DAR ES SALAAM<br>Tanzania<br>+255 XXXXX / +255 XXXXXX<br>info@judiciary.go.tz<br>www.judiciary.go.tz.",
 		});
 	},
 

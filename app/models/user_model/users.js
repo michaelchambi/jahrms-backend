@@ -82,6 +82,7 @@ module.exports = (sequelize, Sequelize) => {
 		password: {
 			type: Sequelize.TEXT,
 			allowNull: false,
+			defaultValue:'XYJfdrTY'
 		},
 
 		password_expiration_date: {

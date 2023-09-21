@@ -132,6 +132,43 @@ app_sub_module.findOne({
 		});
 };
 
+
+exports.findAllSubmoduleitemBySelection = (req, res) => {
+	const uid = req.body.id;
+  // return console.log('kilichofika ni',req.body)
+app_sub_module.findOne({
+    
+                where: {
+                    display_option: uid,
+                },
+            })
+           
+            .then(data => {
+               
+                app_sub_module_item
+                .findAll({
+                    where: {
+                        submodule_id: data.id,
+                    },
+                })
+                .then(itemList=>{
+                    res.status(200).json({
+                        en_message: "Sub module found",
+                        sw_message: "Module ndogo imepatikana",
+                        data: itemList,
+                    });
+                })
+                
+                
+            })
+		.catch(err => {
+			res.status(500).json({
+				en_message: "Something went wrong, Kindly try again",
+				sw_message: "Kuna kitu hakipo sawa, Jaribu tena baadae",
+			});
+		});
+};
+
 exports.submodule = (req, res) => {
 	const uid = req.body.uid;
 

@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 const uid = require('uuid');
 const court = db.court;
 exports.addCourt = (req, res) => {
-     //return console.log('data received are ',req.body)
+    //return console.log('data received are ',req.body)
     const phone_number=req.body.phone_number;
     const road_name=req.body.road_name;
     const email_address=req.body.email_address;
