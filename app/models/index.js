@@ -85,11 +85,11 @@ db.spouse=require("./user_model/other_personal_details/spouse")(sequelize, Seque
 db.marital_status=require("./user_model/other_personal_details/marital_status_details")(sequelize, Sequelize);
 db.workstation_history=require("./user_model/workstation_history")(sequelize, Sequelize);
 db.dependant_attachment=require("./user_model/other_personal_details/dependant_attachments")(sequelize, Sequelize);
-
-
-
-
-
+db.api_change_designation=require("./change_designation/api_change_designation")(sequelize, Sequelize);
+db.api_transfer=require("./transfer/app_transfer")(sequelize, Sequelize);
+db.api_transfer_reason=require("./transfer/app_transfer_reason")(sequelize, Sequelize);
+db.api_job_list=require("./job_list/api_job_list")(sequelize, Sequelize);
+db.api_leave=require("./leave/app_leave")(sequelize, Sequelize);
 //====================================================
 // START OF MODULE/MODULE_PERMISSION/ROLE RELATION
 //====================================================
@@ -524,14 +524,14 @@ db.section.belongsTo(db.department, {
 });
 
 db.users.hasMany(db.scope, {
-    foreignKey: "user_id",
+    foreignKey: "employee_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
 db.scope.belongsTo(db.users, {
     through: db.users,
-    foreignKey: "user_id",
+    foreignKey: "employee_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -884,22 +884,139 @@ db.api_designation.hasMany(db.api_staff_profile, {
   
   db.api_staff_profile.belongsTo(db.api_designation,{
     through:db.api_designation,
-    foreignKey:"designationId",
+    foreignKey:"designation_id",
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
 
-  db.users.hasOne(db.api_staff_profile, {
-    foreignKey:"user_id",
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  });
+//   db.users.hasOne(db.api_staff_profile, {
+//     foreignKey:"user_id",
+//     onDelete: 'CASCADE',
+//     onUpdate: 'CASCADE'
+//   });
 
-db.api_staff_profile.belongsTo(db.users,{
-    through:db.users,
-    foreignKey:"user_id",
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+// db.api_staff_profile.belongsTo(db.users,{
+//     through:db.users,
+//     foreignKey:"user_id",
+//     onDelete: 'CASCADE',
+//     onUpdate: 'CASCADE'
+// });
+
+
+
+
+
+//====================================================
+// NEW INTERGRATED/FROM TAMIMU
+//====================================================
+
+
+
+db.users.hasMany(db.api_transfer, {
+	foreignKey: "userId",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.api_transfer.belongsTo(db.users, {
+	through: db.users,
+	foreignKey: "userId",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+db.users.hasMany(db.api_leave, {
+	foreignKey: "userId",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.api_leave.belongsTo(db.users, {
+	through: db.users,
+	foreignKey: "userId",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.cadre.hasMany(db.api_job_list, {
+	foreignKey: "cadre_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.api_job_list.belongsTo(db.cadre, {
+	through: db.cadre,
+	foreignKey: "cadre_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.court.hasMany(db.api_job_list, {
+	foreignKey: "court_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.api_job_list.belongsTo(db.court, {
+	through: db.court,
+	foreignKey: "court_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.api_change_designation.hasMany(db.api_staff_profile, {
+	foreignKey: "change_designation_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.api_staff_profile.belongsTo(db.api_change_designation, {
+	through: db.api_change_designation,
+	foreignKey: "change_designation_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.api_change_designation.hasMany(db.designation_history, {
+	foreignKey: "change_designation_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+
+db.designation_history.belongsTo(db.api_change_designation, {
+	through: db.api_change_designation,
+	foreignKey: "change_designation_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.court.hasMany(db.api_transfer, {
+	foreignKey: "court_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.api_transfer.belongsTo(db.court, {
+	through: db.court,
+	foreignKey: "court_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+db.api_transfer_reason.hasMany(db.api_transfer, {
+	foreignKey: "transfer_reason_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
+});
+
+db.api_transfer.belongsTo(db.api_transfer_reason, {
+	through: db.api_transfer_reason,
+	foreignKey: "transfer_reason_id",
+	onDelete: "CASCADE",
+	onUpdate: "CASCADE",
 });
 
 // end of database relationship

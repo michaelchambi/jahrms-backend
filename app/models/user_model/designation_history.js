@@ -22,6 +22,14 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.DATE,
             allowNull:true,
         },
+        designation_end_date:{
+            type:Sequelize.DATE,
+            allowNull:true
+        },
+        designation_comment:{
+            type:Sequelize.TEXT,
+            allowNull:true
+        },
         status:{
             type:Sequelize.STRING,
             allowNull:true

@@ -114,6 +114,11 @@ const user_attachment = require("./app/routes/master_data_routes/user_attachment
 const spouse = require("./app/routes/master_data_routes/employee/spouse");
 const marital_status = require("./app/routes/master_data_routes/employee/marital_status_details");
 const working_station = require("./app/routes/master_data_routes/employee/working_station");
+const transfer = require("./app/routes/transfer/transfer_routes");
+const job_list = require("./app/routes/job_list_routes/job_list_routes");
+const transfer_reason = require("./app/routes/transfer/transfer_reason_routes");
+const designation_cahnges = require("./app/routes/change_designation_routes/promotion_routes");
+const leave = require("./app/routes/leave/leave_routes");
 
 
 app.use(url_use + api_version, route);
@@ -151,7 +156,11 @@ app.use(url_use + api_version, user_attachment);
 app.use(url_use + api_version, spouse);
 app.use(url_use + api_version, marital_status);
 app.use(url_use + api_version, working_station);
-
+app.use(url_use + api_version, transfer);
+app.use(url_use + api_version, job_list);
+app.use(url_use + api_version, designation_cahnges);
+app.use(url_use + api_version, transfer_reason);
+app.use(url_use + api_version, leave);
 // =============================================================================
 // set port, listen for requests
 // =============================================================================

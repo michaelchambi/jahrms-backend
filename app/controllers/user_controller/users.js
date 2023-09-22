@@ -402,11 +402,12 @@ exports.getAllUsers = (req, res) => {
     users
         .findAll()
         .then(data => {
-            res.status(200).json({
-                en_message: "Users list found",
-                sw_message: "Employee List imepatikana",
-                data: data,
-            });
+            res.status(200).send(data);
+            // res.status(200).json({
+            //     en_message: "Users list found",
+            //     sw_message: "Employee List imepatikana",
+            //     data:data,
+            // });
         })
         .catch(err => {
             res.status(500).json({
@@ -456,6 +457,47 @@ exports.edit = (req, res, next) => {
             });
         });
 };
+
+
+
+exports.findAllRetirements = (req, res) => {
+
+    users.findAll({})
+
+        .then((data) => {
+            //  return console.log('hizi ni data za user',data);
+           
+            const arr = [];
+            // const my_date='2023-08-29 17:01:23.335+03'
+            const today_date = new Date();
+            for (let ta = 0; ta < data.length; ta++) {
+                const designation_start_date = data[ta].birth_date;
+                const date_diff = Math.abs(today_date.getTime() - designation_start_date.getTime());
+                const years = Math.ceil(date_diff / ((1000 * 3600 * 24 )))
+                const details = data[ta];
+                const combined = { years, details }
+                if (years >= 21565) {
+                   
+                    arr.push(combined)
+                }
+                
+
+            }
+            res.status(200).json({
+                message: 'hizi data',
+                employee: arr
+            })
+
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: err.message + " No user found"
+            })
+        })
+
+
+
+}
 
 exports.activate = (req, res) => {
     const uid = req.body.uid;
