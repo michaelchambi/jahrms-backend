@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const db = require("../../../models");
+<<<<<<< HEAD
 // var jwt = require("jsonwebtoken");
 // var bcrypt = require("bcryptjs");
 // const capitalize = require("../../../../node_modules/capitalize-the-first-letter/capitalize");
@@ -8,16 +9,22 @@ const db = require("../../../models");
 // const uuid = require("uuid");
 // const querystring = require("querystring");
 // const qs = require("qs");
+=======
+>>>>>>> michael-backend
 const path = require("path");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
 const employment_inf = db.employment_details
 const users = db.users;
+const designation_change=db.api_change_designation
 const staff_profile = db.api_staff_profile;
 const designation_history = db.designation_history;
 const station_details = db.working_station_details;
+<<<<<<< HEAD
 // const bank_details = db.bank_details;
 // const role_user = db.role_user;
+=======
+>>>>>>> michael-backend
 const roles = db.roles;
 const axios = require("axios").default;
 const fs = require("fs");
@@ -45,7 +52,7 @@ function file_codegenerator(length) {
 
 
 exports.addEmploymentInfo = (req, res) => {
-    //return console.log('data received are ',req.body,req.files)
+    // return console.log('data received are ',req.body,req.files)
     const hired_letter = req.files.hired_latter;
     const hired_letterNameExtensionName = path.extname(hired_letter.name);
     const allowedhired_latterExtension = [".pdf"];
@@ -56,7 +63,7 @@ exports.addEmploymentInfo = (req, res) => {
 
     const employee_folder_path = process.env.employee_directory_path;
     const file_abreviation = "Emp-";
-
+    const designation_change_id=req.body.designation_change_id;
     const check_numbers = req.body.check_number;
     const personal_folder = req.body.personal_folder;
     const pf_numbers = req.body.pf_number;
@@ -92,6 +99,7 @@ exports.addEmploymentInfo = (req, res) => {
                     check_number: check_numbers,
                     pf_number: pf_numbers,
                     confirmation_date: confirmation_date,
+                    designation_change_id:designation_change_id,
                     hired_date: hiring_date,
                     hiring_latter: file_abreviation + file_codegenerator(6) + hired_letterNameExtensionName,
                     confirmation_date: confirmation_date,
@@ -101,6 +109,7 @@ exports.addEmploymentInfo = (req, res) => {
                     active: true
                 })
                 .then(user_info => {
+<<<<<<< HEAD
                     staff_profile.create({
                         employee_id: employee_id,
                         registrar_id:user_id,
@@ -114,14 +123,47 @@ exports.addEmploymentInfo = (req, res) => {
                         registrar_id: user_id,
                         uid: uid.v4(),
                         status: 'COMPLETE',
+=======
+                    designation_change.findOne({ 
+                        where:{change_designation_reason_abbreviation:'NEW'}
+>>>>>>> michael-backend
                     })
-                    station_details.create({
-                        user_id: user_id,
-                        employee_id: employee_id,
-                        completion_status: 'INCOMPLETE',
-                        uid: uid.v4()
+                    .then((change_designation_data)=>{
+                        staff_profile.create({
+                            employee_id: employee_id,
+                            registrar_id:user_id,
+                            change_designation_id:change_designation_data.id,
+                            designation_id: designation,
+                            completion_status: 'INCOMPLETE'
+                        })
+                        .then((staff_profile_Results)=>{
+                            designation_history.create({
+                                designation_id: staff_profile_Results.designation_id,
+                                change_designation_id:staff_profile_Results.change_designation_id,
+                                staff_profile_id: staff_profile_Results.id,
+                                Assignment_date: hiring_date,
+                                registrar_id: user_id,
+                                uid: uid.v4(),
+                                designation_status:'CURRENT',
+                                status: 'COMPLETE',
+                            })
+                        })
+                        station_details.create({
+                            user_id: user_id,
+                            employee_id: employee_id,
+                            completion_status: 'INCOMPLETE',
+                            uid: uid.v4()
+                        })
+                       
                     })
-                   
+                    .catch((err) => {
+                        res.status(500).send({
+                            message: err.message,
+                            'code': 0
+                        });
+                    });
+
+                 
                     const hiring_latter_path = employee_folder_path + personal_folder;
                     const first_employment_letter = user_info.hiring_latter;
                     fs.mkdirSync(hiring_latter_path, {

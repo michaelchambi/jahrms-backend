@@ -42,7 +42,7 @@ exports.add = (req, res) => {
 exports.findAll = (req, res) => {
 	app_sub_module_item
 		.findAll({
-			order: [["name", "ASC"]],
+			order: [["arrangement_order", "ASC"]],
 		})
 		.then(data => {
 			res.status(200).json({
@@ -113,6 +113,7 @@ app_sub_module.findOne({
                     where: {
                         submodule_id: data.id,
                     },
+					order: [["arrangement_order", "ASC"]],
                 })
                 .then(itemList=>{
                     res.status(200).json({
@@ -150,6 +151,7 @@ app_sub_module.findOne({
                     where: {
                         submodule_id: data.id,
                     },
+					order: [["arrangement_order", "ASC"]],
                 })
                 .then(itemList=>{
                     res.status(200).json({

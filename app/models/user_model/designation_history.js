@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.BIGINT,
             allowNull:false,
         },
-        employee_id:{
+        staff_profile_id:{
             type:Sequelize.BIGINT,
             allowNull:false,
         },
@@ -30,9 +30,16 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.TEXT,
             allowNull:true
         },
+<<<<<<< HEAD
+=======
+        designation_status:{
+            type:Sequelize.STRING,
+            allowNull:false
+        },
+>>>>>>> michael-backend
         status:{
             type:Sequelize.STRING,
-            allowNull:true
+            allowNull:false
         },
         
         uid: {

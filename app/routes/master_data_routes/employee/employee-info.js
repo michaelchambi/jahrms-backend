@@ -10,3 +10,4 @@ router.post("/employment-info/editEmploymentInfo", [authCheck.verifyToken], cont
 router.post("/employment-info/activateEmploymentInfo", [authCheck.verifyToken], controller.activate);
 router.post("/employment-info/deactivateEmploymentInfo", [authCheck.verifyToken], controller.deactivate);
 module.exports = router;
+

@@ -119,7 +119,11 @@ const job_list = require("./app/routes/job_list_routes/job_list_routes");
 const transfer_reason = require("./app/routes/transfer/transfer_reason_routes");
 const designation_cahnges = require("./app/routes/change_designation_routes/promotion_routes");
 const leave = require("./app/routes/leave/leave_routes");
+<<<<<<< HEAD
 
+=======
+const areas = require("./app/routes/areas/areas");
+>>>>>>> michael-backend
 
 app.use(url_use + api_version, route);
 app.use(url_use + api_version, auth);
@@ -161,6 +165,10 @@ app.use(url_use + api_version, job_list);
 app.use(url_use + api_version, designation_cahnges);
 app.use(url_use + api_version, transfer_reason);
 app.use(url_use + api_version, leave);
+<<<<<<< HEAD
+=======
+app.use(url_use + api_version, areas);
+>>>>>>> michael-backend
 // =============================================================================
 // set port, listen for requests
 // =============================================================================

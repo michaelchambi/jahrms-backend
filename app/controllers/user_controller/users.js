@@ -237,13 +237,13 @@ exports.findOneOnly = (req, res) => {
             where: {
                 uid: uid
             },
-            include: [{
-                model: role_user,
-                attributes: ["role_id"],
-                include: {
-                    model: roles,
-                },
-            }, ],
+            // include: [{
+            //     model: role_user,
+            //     attributes: ["role_id"],
+            //     include: {
+            //         model: roles,
+            //     },
+            // }, ],
         })
         
         .then(data => {

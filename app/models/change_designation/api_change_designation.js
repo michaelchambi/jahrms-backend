@@ -15,6 +15,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
 			allowNull: true,
         },
+<<<<<<< HEAD
+=======
+		change_designation_reason_abbreviation:{
+            type: Sequelize.STRING,
+			allowNull: true,
+        },
+>>>>>>> michael-backend
 		status: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,

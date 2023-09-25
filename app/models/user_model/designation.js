@@ -8,13 +8,18 @@ module.exports = (sequelize, Sequelize) => {
         },
         cadre_id:{
             type:Sequelize.INTEGER,
-            allowNull:true,
+            allowNull:true,unique:'compositeIndex',
         },
 
         registrar_id:{
             type:Sequelize.INTEGER,
             allowNull:true,
         },
+        designation_order:{
+            type:Sequelize.INTEGER,
+            allowNull:true,unique:'compositeIndex',
+        },
+
 
         name:{
             type:Sequelize.STRING,
@@ -37,7 +42,17 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
             defaultValue:'4237e4e7-3bfb-4e4b-8e86-465274c47281'
 		},
-    });
+    },
+    {
+        uniqueKeys: 
+        {
+            compositeIndex: 
+            {
+                fields: ['cadre_id', 'designation_order']
+            }
+        }
+  
+});
   
     return api_designation;
   };
