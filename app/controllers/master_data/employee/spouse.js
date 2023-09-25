@@ -10,6 +10,7 @@ const spouse = db.spouse;
 exports.editSpouse = (req, res) => {
     const id = req.body.id;
     const spouse_name = req.body.name;
+    const spouse_nida = req.body.spouse_nida;
     const employee_id = req.body.employee_id;
     const user_id = req.body.user_id;
     spouse.findOne({
@@ -21,6 +22,7 @@ exports.editSpouse = (req, res) => {
             user_id:user_id,
             employee_id: employee_id,
             spouse_name: spouse_name,
+            spouse_nida: spouse_nida,
             uid:uid.v4(),
             spouse_status: true
           })

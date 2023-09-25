@@ -2,7 +2,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
-
 const uid = require('uuid');
 const bank = db.bank;
 exports.addBank = (req, res) => {
@@ -109,7 +108,6 @@ exports.activate = (req, res) => {
 
 exports.deactivate = (req, res) => {
     const id = req.body.id;
-
     bank.findOne({
         where: {
             id: id
@@ -124,3 +122,6 @@ exports.deactivate = (req, res) => {
         res.status(500).send({message: err.message});
     });
 };
+
+
+ 

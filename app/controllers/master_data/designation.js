@@ -6,12 +6,14 @@ const uid = require('uuid');
 const designation= db.api_designation;
 
 exports.addDesignation= (req, res) => {
-     //return console.log('data receioved ',req.body)
+    // return console.log('data receioved ',req.body)
     const designation_name = req.body.name;
     const description = req.body.description;
     const designation_code = req.body.abbreviation;
-    const carder_id = req.body.carder_id;
+    const carder_id = req.body.cadre_id;
+    const designation_order=req.body.designation_order;
     const user_id = req.body.user_id;
+    
     if (!req.body.name) {
         return res.status(400).send({message: "Designationname has not filled."});
 
@@ -22,6 +24,7 @@ exports.addDesignation= (req, res) => {
             cadre_id: carder_id,
             abbreviation: designation_code,
             descriptin:description,
+            designation_order:designation_order,
             uid:uid.v4(),
             status: true
         }).then((data) => {
@@ -47,11 +50,14 @@ exports.editDesignation= (req, res) => {
         }
     }).then((data) => {
         data.update({
-          name: designation_name,
-            data_entry_personel_id: user_id,
-            designation_abbreviation: designation_code,
-            uid: uid.v4(),
-            status: true
+            name: designation_name,
+            registrar_id: user_id,
+            cadre_id: carder_id,
+            abbreviation: designation_code,
+            descriptin:description,
+            designation_order:designation_order,
+            uid:uid.v4(),
+            status: false
           })
            .then((result) => {
             res.status(200).send({

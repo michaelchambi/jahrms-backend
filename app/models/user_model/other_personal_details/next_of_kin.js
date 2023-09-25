@@ -10,35 +10,29 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        first_name:{
+        relation_id:{
+            type:Sequelize.INTEGER,
+            allowNull:true,
+        },
+        full_name:{
             type:Sequelize.STRING,
             allowNull:true,
         },
-        middle_name:{
+        phone_number:{
             type:Sequelize.STRING,
             allowNull:true,
         },
-        last_name:{
+        physical_address:{
             type:Sequelize.STRING,
             allowNull:true,
         },
-       email:{
-            type:Sequelize.STRING,
-            allowNull:true,
-        },
-        phone_name:{
-            type:Sequelize.STRING,
-            allowNull:true,
-        },
+       
         gender:{
             type:Sequelize.STRING,
             allowNull:true,
         },
 
-        relation_ship:{
-            type:Sequelize.STRING,
-            allowNull:true,
-        },
+    
         uid:{
             type:Sequelize.STRING,
             allowNull:false,

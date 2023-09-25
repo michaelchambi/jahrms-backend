@@ -13,6 +13,7 @@ module.exports = (sequelize, Sequelize) => {
         employee_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
+            unique:true
         },
         account_name:{
             type:Sequelize.STRING,
@@ -20,10 +21,16 @@ module.exports = (sequelize, Sequelize) => {
         },
         account_number:{
             type:Sequelize.STRING,
-            allowNull:true
+            allowNull:true,
+            unique:true
         },
     
-        completion_status:{
+        card_copy:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+       
+        status:{
             type:Sequelize.STRING,
             allowNull: false,
         },

@@ -28,6 +28,12 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 		},
 
+		arrangement_order: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+			defaultValue:20
+		},
+
 		active: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,

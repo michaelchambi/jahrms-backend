@@ -52,7 +52,7 @@ exports.addCourt = (req, res) => {
 
 exports.editCourt = (req, res) => {
 
-     return console.log('data received is ',req.body)
+    // return console.log('data received is ',req.body)
     const id = req.body.court_id;
     const phone_number=req.body.phone_number;
     const road_name=req.body.road_name;

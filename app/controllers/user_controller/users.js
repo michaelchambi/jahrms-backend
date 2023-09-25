@@ -60,7 +60,6 @@ exports.signup = (req, res) => {
   const employee_folder_path = process.env.employee_directory_path;
   const file_abreviation = "Emp-";
     const email = req.body.email;
-    const designation=req.body.designation_id;
     const region=req.body.region_id;
     const district_id=req.body.district_id;
     const marital_status = req.body.marital_status;
@@ -238,13 +237,13 @@ exports.findOneOnly = (req, res) => {
             where: {
                 uid: uid
             },
-            include: [{
-                model: role_user,
-                attributes: ["role_id"],
-                include: {
-                    model: roles,
-                },
-            }, ],
+            // include: [{
+            //     model: role_user,
+            //     attributes: ["role_id"],
+            //     include: {
+            //         model: roles,
+            //     },
+            // }, ],
         })
         
         .then(data => {
@@ -270,6 +269,52 @@ exports.findOneOnly = (req, res) => {
         });
     });
 };
+
+
+
+exports.findOneOnlyById = (req, res) => {
+
+    //return console.log('data are ',req.params.id)
+   const employee_id = req.params.id;
+   users
+       .findOne({
+           where: {
+               id: employee_id
+           },
+           include: [{
+               model: role_user,
+               attributes: ["role_id"],
+               include: {
+                   model: roles,
+               },
+           }, ],
+       })
+       
+       .then(data => {
+
+          
+
+            const today_date=new Date();
+            const birtdate=data.birth_date;
+            const date_diff=Math.abs(today_date.getTime() - birtdate.getTime());
+            const age=Math.ceil(date_diff/( (1000 * 3600 * 24*366)))
+            const combined_data={data,age}
+                   res.status(200).json({
+                       en_message: "User details found",
+                       sw_message: "Employee Details",
+                       data: combined_data
+                   });
+       })
+
+   .catch(err => {
+       res.status(500).json({
+           en_message: err.message,
+           sw_message: "Kuna kitu hakipo sawa, Jaribu tena baadae",
+       });
+   });
+};
+
+
 
 exports.findOne = (req, res) => {
     const uid = req.body.uid;
@@ -357,11 +402,12 @@ exports.getAllUsers = (req, res) => {
     users
         .findAll()
         .then(data => {
-            res.status(200).json({
-                en_message: "Users list found",
-                sw_message: "Employee List imepatikana",
-                data: data,
-            });
+            res.status(200).send(data);
+            // res.status(200).json({
+            //     en_message: "Users list found",
+            //     sw_message: "Employee List imepatikana",
+            //     data:data,
+            // });
         })
         .catch(err => {
             res.status(500).json({
@@ -411,6 +457,47 @@ exports.edit = (req, res, next) => {
             });
         });
 };
+
+
+
+exports.findAllRetirements = (req, res) => {
+
+    users.findAll({})
+
+        .then((data) => {
+            //  return console.log('hizi ni data za user',data);
+           
+            const arr = [];
+            // const my_date='2023-08-29 17:01:23.335+03'
+            const today_date = new Date();
+            for (let ta = 0; ta < data.length; ta++) {
+                const designation_start_date = data[ta].birth_date;
+                const date_diff = Math.abs(today_date.getTime() - designation_start_date.getTime());
+                const years = Math.ceil(date_diff / ((1000 * 3600 * 24 )))
+                const details = data[ta];
+                const combined = { years, details }
+                if (years >= 21565) {
+                   
+                    arr.push(combined)
+                }
+                
+
+            }
+            res.status(200).json({
+                message: 'hizi data',
+                employee: arr
+            })
+
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: err.message + " No user found"
+            })
+        })
+
+
+
+}
 
 exports.activate = (req, res) => {
     const uid = req.body.uid;

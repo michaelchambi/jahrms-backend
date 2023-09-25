@@ -86,6 +86,7 @@ const court_level = require("./app/routes/master_data_routes/court_level");
 const court = require("./app/routes/master_data_routes/api_court_rout");
 const announcement = require("./app/routes/announcement/announcement");
 const bank = require("./app/routes/bank/bank");
+const bank_info = require("./app/routes/bank/bankInfo");
 const department = require("./app/routes/master_data_routes/department");
 const qualification = require("./app/routes/master_data_routes/qualification");
 const zone = require("./app/routes/master_data_routes/zone");
@@ -100,6 +101,8 @@ const station = require("./app/routes/master_data_routes/station");
 const scope = require("./app/routes/master_data_routes/scope");
 const leave_type = require("./app/routes/master_data_routes/leave_type");
 const dependant_type = require("./app/routes/master_data_routes/dependant_type");
+const dependant = require("./app/routes/master_data_routes/employee/dependant");
+const next_of_kin = require("./app/routes/master_data_routes/employee/next_of_kin");
 const qualification_grade = require("./app/routes/master_data_routes/qualification_grade");
 const cadre = require("./app/routes/master_data_routes/cadre");
 const professional = require("./app/routes/master_data_routes/professional");
@@ -111,6 +114,12 @@ const user_attachment = require("./app/routes/master_data_routes/user_attachment
 const spouse = require("./app/routes/master_data_routes/employee/spouse");
 const marital_status = require("./app/routes/master_data_routes/employee/marital_status_details");
 const working_station = require("./app/routes/master_data_routes/employee/working_station");
+const transfer = require("./app/routes/transfer/transfer_routes");
+const job_list = require("./app/routes/job_list_routes/job_list_routes");
+const transfer_reason = require("./app/routes/transfer/transfer_reason_routes");
+const designation_cahnges = require("./app/routes/change_designation_routes/promotion_routes");
+const leave = require("./app/routes/leave/leave_routes");
+const areas = require("./app/routes/areas/areas");
 
 app.use(url_use + api_version, route);
 app.use(url_use + api_version, auth);
@@ -119,6 +128,7 @@ app.use(url_use + api_version, court_level);
 app.use(url_use + api_version, court);
 app.use(url_use + api_version, announcement);
 app.use(url_use + api_version, bank);
+app.use(url_use + api_version, bank_info);
 app.use(url_use + api_version, qualification);
 app.use(url_use + api_version, qualification_grade);
 app.use(url_use + api_version, zone);
@@ -134,6 +144,8 @@ app.use(url_use + api_version, scope);
 app.use(url_use + api_version, station);
 app.use(url_use + api_version, leave_type);
 app.use(url_use + api_version, dependant_type);
+app.use(url_use + api_version, dependant);
+app.use(url_use + api_version, next_of_kin);
 app.use(url_use + api_version, cadre);
 app.use(url_use + api_version, skill);
 app.use(url_use + api_version, attachment);
@@ -144,7 +156,12 @@ app.use(url_use + api_version, user_attachment);
 app.use(url_use + api_version, spouse);
 app.use(url_use + api_version, marital_status);
 app.use(url_use + api_version, working_station);
-
+app.use(url_use + api_version, transfer);
+app.use(url_use + api_version, job_list);
+app.use(url_use + api_version, designation_cahnges);
+app.use(url_use + api_version, transfer_reason);
+app.use(url_use + api_version, leave);
+app.use(url_use + api_version, areas);
 // =============================================================================
 // set port, listen for requests
 // =============================================================================

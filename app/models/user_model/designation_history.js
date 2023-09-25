@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.BIGINT,
             allowNull:false,
         },
-        employee_id:{
+        staff_profile_id:{
             type:Sequelize.BIGINT,
             allowNull:false,
         },
@@ -22,9 +22,21 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.DATE,
             allowNull:true,
         },
+        designation_end_date:{
+            type:Sequelize.DATE,
+            allowNull:true
+        },
+        designation_comment:{
+            type:Sequelize.TEXT,
+            allowNull:true
+        },
+        designation_status:{
+            type:Sequelize.STRING,
+            allowNull:false
+        },
         status:{
             type:Sequelize.STRING,
-            allowNull:true
+            allowNull:false
         },
         
         uid: {

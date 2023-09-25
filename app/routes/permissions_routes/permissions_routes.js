@@ -75,12 +75,13 @@ router.post("/users/edit-user", [authCheck.verifyToken], user_controller.edit, [
 router.post("/users/user/show", [authCheck.verifyToken], user_controller.findOne);
 router.post("/users/showWithId", [authCheck.verifyToken], user_controller.findOneWithId);
 router.get("/users/show/:id", [authCheck.verifyToken], user_controller.findOneOnly);
+router.get("/users/showById/:id", [authCheck.verifyToken], user_controller.findOneOnlyById);
 router.get("/users/totalEmployee", [authCheck.verifyToken], user_controller.countMyEmployee);
-router.get("/users", [authCheck.verifyToken], user_controller.getAllUsers);
+router.get("/users/", [authCheck.verifyToken], user_controller.getAllUsers);
 router.post("/users/add-user-roles", [authCheck.verifyToken], user_controller.addUserRoles);
 
 // router.post("/users/users-list", [authCheck.verifyToken], user_controller.organization_users_list);
-// router.post("/users/institution-users-list", [authCheck.verifyToken], user_controller.userList);
+router.get("/users/get-employee-retirements", [authCheck.verifyToken], user_controller.findAllRetirements);
 router.post("/users/activate-user", [authCheck.verifyToken], user_controller.activate);
 router.post("/users/deactivate-user", [authCheck.verifyToken], user_controller.deactivate);
 router.post("/users/my-profile", [authCheck.verifyToken], user_controller.myProfile);
@@ -88,5 +89,3 @@ router.get("/hrm-storage-files/employee/:d1r3c7095/:name", user_controller.downl
 
 module.exports = router;
 
-
-// http://localhost:8000/jahrm-connect/api/v1/permissions/show-submodule-permission

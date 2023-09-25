@@ -3,16 +3,17 @@ dotenv.config();
 const db = require("../../models");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
+const attachment_dependant_type=db.attachment_dependant_type
 const dependant_type = db.dependant_type;
 
 exports.addDependant_type = (req, res) => {
 
-// return console.log('data received are ',req.body)
-
-    const dependant_type_name = req.body.name;
-    const description = req.body.dependant_description;
+ //return console.log('data received are ',req.body)
+const attachments = req.body.attachment_id;
+    const dependant_type_name = req.body.dependant_type_name;
+    const description = req.body.description;
     const user_id = req.body.user_id;
-    if (!req.body.name) {
+    if (!req.body.dependant_type_name) {
         return res.status(400).send({message: "Dependant type name has not filled."});
 
     } else {
@@ -23,6 +24,13 @@ exports.addDependant_type = (req, res) => {
             uid:uid.v4(),
             status: true
         }).then((data) => {
+            for (const key in attachments) {
+                const attachment_data = attachments[key];
+                attachment_dependant_type.create({
+                    attachment_id: attachment_data,
+                    dependant_type_id: data.id
+                });
+            }
             res.json({
                 message: data.name + " Successful Created"
             });

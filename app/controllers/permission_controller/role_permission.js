@@ -354,7 +354,7 @@ exports.showModulePermissions = (req, res) => {
     .catch((err) => {
       res.status(500).json({
         en_message: "User not found",
-        sw_message: "Mtumiaji hatumbuliki",
+        sw_message: "Mtumiaji hatambuliki",
       });
     });
 };

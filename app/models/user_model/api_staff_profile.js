@@ -19,6 +19,11 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.STRING,
             allowNull:true
         },
+        designation_assignment_date:{
+            type:Sequelize.DATE,
+            allowNull:true,
+            defaultValue:'2023-08-29 17:01:23.335+03'
+        },
         completion_status:{
             type:Sequelize.STRING,
             allowNull:true
