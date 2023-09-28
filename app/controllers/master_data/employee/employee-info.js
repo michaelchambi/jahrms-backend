@@ -3,6 +3,7 @@ const db = require("../../../models");
 const path = require("path");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
+const fop = require("../../../middlewares/file_processing");
 const employment_inf = db.employment_details
 const users = db.users;
 const designation_change=db.api_change_designation
@@ -157,10 +158,7 @@ exports.addEmploymentInfo = (req, res) => {
                             });
                         }
                     });
-                    // for (const key in roles) {
-                    //     const role_data = roles[key];
-                    //     role_user.create({role_id: role_data, user_id:user_info.employee_id});
-                    // }
+                   
                     res.json({
                         message: 'Employment Details Added' + " Successfully",
                     });

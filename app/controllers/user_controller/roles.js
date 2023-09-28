@@ -168,6 +168,33 @@ exports.findOne = (req, res) => {
 		});
 };
 
+
+exports.findOneByEmployeeId = (req, res) => {
+	const id = req.body.id;
+
+	role_user
+		.findAll({
+			where: {
+				user_id: id,
+			},
+			include:[{model:roles}]
+		})
+		.then(data => {
+			res.status(200).json({
+				en_message: "Roles found",
+				sw_message: "System Roles yamepatikana",
+				data: data,
+			});
+		})
+		.catch(err => {
+			res.status(500).json({
+				en_message: "No roles found",
+				sw_message: "System Roles hayajapatikana",
+			});
+		});
+};
+
+
 exports.findAll = (req, res) => {
 	roles
 		.findAll({

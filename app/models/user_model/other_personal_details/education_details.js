@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
             autoIncrement:true
         },
+        created_by_id:{
+            type:Sequelize.INTEGER,
+            allowNull:false,
+        },
         employee_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
@@ -18,27 +22,38 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.STRING,
             allowNull:true
         },
-       specialization:{
-            type:Sequelize.STRING,
+       specialization_id:{
+            type:Sequelize.INTEGER,
             allowNull:true
         },
-        institution_name:{
-            type:Sequelize.STRING,
+        institution_id:{
+            type:Sequelize.INTEGER,
             allowNull:true
         },
         start_date:{
             type:Sequelize.DATE,
             allowNull:true
         },
-
-       certificate_attachment:{
+        end_date:{
             type:Sequelize.DATE,
             allowNull:true
         },
-        completion_status:{
-            type:Sequelize.INTEGER,
+
+       certificate_attachment:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+        transcript_attachment:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+        result:{
+            type:Sequelize.STRING,
+            allowNull:true
+        },
+        status:{
+            type:Sequelize.BOOLEAN,
             allowNull: true,
-            defaultValue:0
         },
     
         uid:{

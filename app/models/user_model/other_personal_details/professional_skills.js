@@ -10,33 +10,25 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        professional_body_id:{
+        professional_id:{
             type:Sequelize.INTEGER,
             allowNull:true,
         },
-       specialization:{
-            type:Sequelize.STRING,
-            allowNull:true
-        },
-        institution_name:{
-            type:Sequelize.STRING,
-            allowNull:true
-        },
-        start_date:{
+       
+    
+        completion_date:{
             type:Sequelize.DATE,
             allowNull:true
         },
 
        certificate_attachment:{
-            type:Sequelize.DATE,
+            type:Sequelize.STRING,
             allowNull:true
         },
-        completion_status:{
-            type:Sequelize.INTEGER,
-            allowNull: false,
-            defaultValue:0
+        status:{
+            type:Sequelize.BOOLEAN,
+            allowNull:false
         },
-    
         uid:{
             type:Sequelize.STRING,
             allowNull:false,

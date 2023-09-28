@@ -15,10 +15,9 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:true,
         },
       
-        completion_status:{
-            type:Sequelize.INTEGER,
+      status:{
+            type:Sequelize.BOOLEAN,
             allowNull: false,
-            defaultValue:0
         },
     
         uid:{
