@@ -21,9 +21,6 @@ const sequelize = new Sequelize(process.env.DB, "postgres", process.env.PASSWORD
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// =============================================================================
-// PERMISSIONS DATABASE TABLE CREATION
-// =============================================================================
 db.app_modules = require("./permission_model/app_modules")(sequelize, Sequelize);
 db.app_sub_modules = require("./permission_model/app_sub_modules")(sequelize, Sequelize);
 db.app_sub_module_action = require("./permission_model/app_sub_module_action")(sequelize, Sequelize);
@@ -31,10 +28,6 @@ db.app_module_permission = require("./permission_model/app_module_permission")(s
 db.app_sub_module_permission = require("./permission_model/app_sub_module_permission")(sequelize, Sequelize);
 db.app_action_permission = require("./permission_model/app_action_permission")(sequelize, Sequelize);
 db.app_submodule_item=require("./permission_model/submodule_item")(sequelize, Sequelize);
-//======================================================
-// SYSTEM DATABASE TABLE CREATION
-// =============================================================================
-
 db.api_designation = require("./user_model/designation")(sequelize, Sequelize);
 db.api_staff_profile = require("./user_model/api_staff_profile")(sequelize, Sequelize);
 db.api_users = require("./user_model/api_users")(sequelize, Sequelize);
@@ -53,9 +46,6 @@ db.bank=require("./bank/bank")(sequelize, Sequelize);
 db.skill=require("./user_model/skill")(sequelize,Sequelize)
 db.bank_details=require("./user_model/other_personal_details/bank_details")(sequelize, Sequelize);
 db.designation_history=require("./user_model/designation_history")(sequelize,Sequelize)
-// =============================================================================
-// LOCATION DATABASE TABLE CREATION
-// =============================================================================
 db.zone=require("./zone/zone")(sequelize, Sequelize);
 db.region=require("./region/region")(sequelize, Sequelize);
 db.district=require("./district/district")(sequelize, Sequelize);
@@ -69,7 +59,7 @@ db.announcement = require("./announcement/announcement")(sequelize, Sequelize);
 db.leave_type=require("./user_model/leave_type")(sequelize, Sequelize);
 db.dependant_details=require("./user_model/other_personal_details/dependant_details")(sequelize, Sequelize);
 db.education_details=require("./user_model/other_personal_details/education_details")(sequelize, Sequelize);
-db.education_level=require("./user_model/other_personal_details/education_level")(sequelize, Sequelize);
+// db.education_level=require("./user_model/other_personal_details/education_level")(sequelize, Sequelize);
 db.professional_body=require("./user_model/other_personal_details/professional_body")(sequelize, Sequelize);
 db.dependant_type=require("./user_model/other_personal_details/dependant_type")(sequelize, Sequelize);
 db.employment_details=require("./user_model/other_personal_details/employment_details")(sequelize, Sequelize);
@@ -79,8 +69,8 @@ db.professional_skill=require("./user_model/other_personal_details/professional_
 db.professional=require("./user_model/other_personal_details/professional")(sequelize, Sequelize);
 db.user_attachment=require("./user_model/user_attachment")(sequelize, Sequelize);
 db.working_station_details=require("./user_model/other_personal_details/working_station_details")(sequelize, Sequelize);
-db.qualification=require("./user_model/other_personal_details/qualification")(sequelize, Sequelize);
-db.qualification_grade=require("./user_model/other_personal_details/qualification_grade")(sequelize, Sequelize);
+db.education_level=require("./user_model/other_personal_details/education_level")(sequelize, Sequelize);
+db.education_level_grade=require("./user_model/other_personal_details/education_level_grade")(sequelize, Sequelize);
 db.spouse=require("./user_model/other_personal_details/spouse")(sequelize, Sequelize);
 db.marital_status=require("./user_model/other_personal_details/marital_status_details")(sequelize, Sequelize);
 db.workstation_history=require("./user_model/workstation_history")(sequelize, Sequelize);
@@ -90,17 +80,12 @@ db.api_transfer=require("./transfer/app_transfer")(sequelize, Sequelize);
 db.api_transfer_reason=require("./transfer/app_transfer_reason")(sequelize, Sequelize);
 db.api_job_list=require("./job_list/api_job_list")(sequelize, Sequelize);
 db.api_leave=require("./leave/app_leave")(sequelize, Sequelize);
-<<<<<<< HEAD
-//====================================================
-// START OF MODULE/MODULE_PERMISSION/ROLE RELATION
-//====================================================
-
-db.dependant_details.hasMany(db.dependant_attachment, {
-    foreignKey: "dependant_id",
-=======
 db.areas=require("./areas/areas")(sequelize, Sequelize);
+db.academic_specialization=require("./academic_specialization/academic_specialization")(sequelize, Sequelize);
+db.academic_institution=require("./academic_institution/academic_institution")(sequelize, Sequelize);
+
 //====================================================
-// START OF MODULE/MODULE_PERMISSION/ROLE RELATION
+// RELATION
 //====================================================
 db.users.hasMany(db.areas, {
     foreignKey: "employee_id",
@@ -111,17 +96,10 @@ db.users.hasMany(db.areas, {
 db.areas.belongsTo(db.users, {
     through: db.users,
     foreignKey: "employee_id",
->>>>>>> michael-backend
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
-db.dependant_attachment.belongsTo(db.dependant_details, {
-    through: db.dependant_details,
-    foreignKey: "dependant_id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-});
 
 db.users.hasMany(db.areas, {
     foreignKey: "completed_by_id",
@@ -129,17 +107,12 @@ db.users.hasMany(db.areas, {
     onUpdate: "CASCADE",
 });
 
-<<<<<<< HEAD
-=======
 db.areas.belongsTo(db.users, {
     through: db.users,
     foreignKey: "completed_by_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
-
-
-
 
 db.dependant_details.hasMany(db.dependant_attachment, {
     foreignKey: "dependant_id",
@@ -155,7 +128,6 @@ db.dependant_attachment.belongsTo(db.dependant_details, {
 });
 
 
->>>>>>> michael-backend
 db.dependant_type.hasMany(db.next_of_kin, {
     foreignKey: "relation_id",
     onDelete: "CASCADE",
@@ -292,26 +264,15 @@ db.designation_history.belongsTo(db.api_designation, {
 });
 
 
-<<<<<<< HEAD
-db.users.hasMany(db.designation_history, {
-    foreignKey: "employee_id",
-=======
 db.api_staff_profile.hasMany(db.designation_history, {
     foreignKey: "staff_profile_id",
->>>>>>> michael-backend
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
-<<<<<<< HEAD
-db.designation_history.belongsTo(db.users, {
-    through: db.users,
-    foreignKey: "employee_id",
-=======
 db.designation_history.belongsTo(db.api_staff_profile, {
     through: db.api_staff_profile,
     foreignKey: "staff_profile_id",
->>>>>>> michael-backend
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -325,6 +286,33 @@ db.education_level.hasMany(db.education_details, {
 db.education_details.belongsTo(db.education_level, {
     through: db.education_level,
     foreignKey: "education_level_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+db.academic_institution.hasMany(db.education_details, {
+    foreignKey: "institution_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+db.education_details.belongsTo(db.academic_institution, {
+    through: db.academic_institution,
+    foreignKey: "institution_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+
+db.academic_specialization.hasMany(db.education_details, {
+    foreignKey: "specialization_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+db.education_details.belongsTo(db.academic_specialization, {
+    through: db.academic_specialization,
+    foreignKey: "specialization_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -410,14 +398,14 @@ db.bank_details.belongsTo(db.bank, {
 
 
 db.professional_body.hasMany(db.professional_skill, {
-    foreignKey: "professional_body_id",
+    foreignKey: "professional_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
 db.professional_skill.belongsTo(db.professional_body, {
     through: db.professional_body,
-    foreignKey: "professional_body_id",
+    foreignKey: "professional_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -435,15 +423,15 @@ db.working_station_details.belongsTo(db.users, {
     onUpdate: "CASCADE",
 });
 
-db.qualification.hasMany(db.qualification_grade, {
-    foreignKey: "qualification_id",
+db.education_level.hasMany(db.education_level_grade, {
+    foreignKey: "education_level_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
-db.qualification_grade.belongsTo(db.qualification, {
-    through: db.qualification,
-    foreignKey: "qualification_id",
+db.education_level_grade.belongsTo(db.education_level, {
+    through: db.education_level,
+    foreignKey: "education_level_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -484,6 +472,19 @@ db.users.hasMany(db.personal_skill, {
 db.personal_skill.belongsTo(db.users, {
     through: db.users,
     foreignKey: "employee_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+db.skill.hasMany(db.personal_skill, {
+    foreignKey: "skill_id",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+db.personal_skill.belongsTo(db.skill, {
+    through: db.skill,
+    foreignKey: "skill_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
@@ -609,10 +610,6 @@ db.scope.belongsTo(db.department, {
 });
 
 
-
-
-
-
 db.app_sub_modules.hasMany(db.app_submodule_item, {
     foreignKey: "submodule_id",
     onDelete: "CASCADE",
@@ -637,13 +634,7 @@ db.app_module_permission.belongsTo(db.roles, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
-//====================================================
-// END OF MODULE/MODULE_PERMISSION/ROLE RELATION
-//====================================================
 
-  //================================================================//
- // START OF MODULE/SUB_MODULE/SUB_MODULE_PERMISSION/ROLE RELATION //
-//================================================================//
 db.app_modules.hasMany(db.app_sub_modules, {
     foreignKey: "module_id",
     onDelete: "CASCADE",
@@ -751,7 +742,6 @@ db.role_user.belongsTo(db.users, {
     foreignKey: "user_id",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
-<<<<<<< HEAD
 });
 
 db.dependant_type.hasMany(db.attachment_dependant_type, {
@@ -780,41 +770,6 @@ db.attachment_dependant_type.belongsTo(db.attachment, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
-
-=======
-});
-
-db.dependant_type.hasMany(db.attachment_dependant_type, {
-    foreignKey: "dependant_type_id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-});
-
-
-db.attachment_dependant_type.belongsTo(db.dependant_type, {
-    through: db.dependant_type,
-    foreignKey: "dependant_type_id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-});
-
-db.attachment.hasMany(db.attachment_dependant_type, {
-    foreignKey: "attachment_id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-});
-
-db.attachment_dependant_type.belongsTo(db.attachment, {
-    through: db.attachment,
-    foreignKey: "attachment_id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-});
-
->>>>>>> michael-backend
-
-
-
 
 db.scope.hasMany(db.scope_station, {
     foreignKey: "scope_id",
@@ -859,13 +814,6 @@ db.api_designation.belongsTo(db.cadre, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
-
-
-
-
-
-
-
 
 db.users.hasMany(db.announcement, {
     foreignKey: "content_provider",
@@ -979,19 +927,6 @@ db.api_designation.hasMany(db.api_staff_profile, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
-
-//   db.users.hasOne(db.api_staff_profile, {
-//     foreignKey:"user_id",
-//     onDelete: 'CASCADE',
-//     onUpdate: 'CASCADE'
-//   });
-
-// db.api_staff_profile.belongsTo(db.users,{
-//     through:db.users,
-//     foreignKey:"user_id",
-//     onDelete: 'CASCADE',
-//     onUpdate: 'CASCADE'
-// });
 
 
 
