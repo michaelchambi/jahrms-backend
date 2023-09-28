@@ -1,5 +1,16 @@
 const dotenv = require("dotenv");
 const db = require("../../../models");
+<<<<<<< HEAD
+// var jwt = require("jsonwebtoken");
+// var bcrypt = require("bcryptjs");
+// const capitalize = require("../../../../node_modules/capitalize-the-first-letter/capitalize");
+// const pass = require("../../../config/password");
+// const mail = require("../../../config/mail");
+// const uuid = require("uuid");
+// const querystring = require("querystring");
+// const qs = require("qs");
+=======
+>>>>>>> michael-backend
 const path = require("path");
 const Op = db.Sequelize.Op;
 const uid = require('uuid');
@@ -10,6 +21,11 @@ const designation_change=db.api_change_designation
 const staff_profile = db.api_staff_profile;
 const designation_history = db.designation_history;
 const station_details = db.working_station_details;
+<<<<<<< HEAD
+// const bank_details = db.bank_details;
+// const role_user = db.role_user;
+=======
+>>>>>>> michael-backend
 const roles = db.roles;
 const axios = require("axios").default;
 const fs = require("fs");
@@ -94,8 +110,24 @@ exports.addEmploymentInfo = (req, res) => {
                     active: true
                 })
                 .then(user_info => {
+<<<<<<< HEAD
+                    staff_profile.create({
+                        employee_id: employee_id,
+                        registrar_id:user_id,
+                        designation_id: designation,
+                        completion_status: 'INCOMPLETE'
+                    })
+                    designation_history.create({
+                        designation_id: designation,
+                        employee_id: employee_id,
+                        Assignment_date: hiring_date,
+                        registrar_id: user_id,
+                        uid: uid.v4(),
+                        status: 'COMPLETE',
+=======
                     designation_change.findOne({ 
                         where:{change_designation_reason_abbreviation:'NEW'}
+>>>>>>> michael-backend
                     })
                     .then((change_designation_data)=>{
                         staff_profile.create({
