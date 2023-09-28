@@ -119,10 +119,8 @@ const job_list = require("./app/routes/job_list_routes/job_list_routes");
 const transfer_reason = require("./app/routes/transfer/transfer_reason_routes");
 const designation_cahnges = require("./app/routes/change_designation_routes/promotion_routes");
 const leave = require("./app/routes/leave/leave_routes");
-<<<<<<< HEAD
-
-=======
 const areas = require("./app/routes/areas/areas");
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> michael-backend
 ||||||| merged common ancestors
@@ -134,6 +132,16 @@ const personal_skills=require("./app/routes/master_data_routes/employee/personal
 const professional_skills=require("./app/routes/master_data_routes/employee/professional_skills");
 
 >>>>>>> michael-backend
+||||||| merged common ancestors
+>>>>>>> michael-backend
+=======
+const academic_institution = require("./app/routes/academic_institution/academic_institution");
+const academic_specialization = require("./app/routes/academic_specialization/academic_specialization");
+const education_details=require("./app/routes/master_data_routes/employee/education_details");
+const personal_skills=require("./app/routes/master_data_routes/employee/personal_skill");
+const professional_skills=require("./app/routes/master_data_routes/employee/professional_skills");
+
+>>>>>>> aad5dcd9742c001edbe6918e1fb4c70b9a10459a
 
 app.use(url_use + api_version, route);
 app.use(url_use + api_version, auth);
@@ -175,9 +183,8 @@ app.use(url_use + api_version, job_list);
 app.use(url_use + api_version, designation_cahnges);
 app.use(url_use + api_version, transfer_reason);
 app.use(url_use + api_version, leave);
-<<<<<<< HEAD
-=======
 app.use(url_use + api_version, areas);
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> michael-backend
 ||||||| merged common ancestors
@@ -189,6 +196,16 @@ app.use(url_use + api_version, personal_skills);
 app.use(url_use + api_version, professional_skills);
 
 >>>>>>> michael-backend
+||||||| merged common ancestors
+>>>>>>> michael-backend
+=======
+app.use(url_use + api_version, academic_institution);
+app.use(url_use + api_version, academic_specialization);
+app.use(url_use + api_version, education_details);
+app.use(url_use + api_version, personal_skills);
+app.use(url_use + api_version, professional_skills);
+
+>>>>>>> aad5dcd9742c001edbe6918e1fb4c70b9a10459a
 // =============================================================================
 // set port, listen for requests
 // =============================================================================
