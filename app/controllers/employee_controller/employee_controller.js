@@ -26,19 +26,6 @@ exports.saveEmployee = (req, res) => {
 	app_organization
 		.findAll()
 		.then(async data => {
-			// for (const key in data) {
-			// 	const element = data[key].code;
-			// 	// codes.push(element);
-
-			// 	const url = "http://154.118.227.74:8702/hcmis-employee-service/api/jotpagedEmployeesByOrganization/data/" + element + "/0/10000?access_token=" + token;
-			// 	url_values.push(url);
-			// 	await axios({
-			// 		method: process.env.REGISTRATION_METHOD,
-			// 		url: url,
-			// 	}).then(values => {
-			// 		employees.push(values.data);
-			// 	});
-			// }
 
 			for (const key in data) {
 				const element = data[key].code;

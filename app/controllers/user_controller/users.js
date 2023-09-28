@@ -153,7 +153,7 @@ exports.signup = (req, res) => {
            ID:user_info.uid,
           
         }
-        // let stringdata = JSON.stringify(employee_signature)
+       
           const myQR=QRCode.toFile(passport_file_path+'/file.png', JSON.stringify(employee_signature), {
             errorCorrectionLevel: 'H'
           }, function(err) {
@@ -247,9 +247,6 @@ exports.findOneOnly = (req, res) => {
         })
         
         .then(data => {
-
-           
-
              const today_date=new Date();
              const birtdate=data.birth_date;
              const date_diff=Math.abs(today_date.getTime() - birtdate.getTime());
@@ -351,11 +348,7 @@ exports.findOne = (req, res) => {
 
 
 
-
-
 exports.findOneWithId = (req, res) => {
-   
-   
    // return console.log('data received are ',req.body)
     const uid = req.body.id;
     users
@@ -372,13 +365,11 @@ exports.findOneWithId = (req, res) => {
             }, ],
         })
         .then(data => {
-           
             const today_date=new Date();
             const birtdate=data.birth_date;
             const date_diff=Math.abs(today_date.getTime() - birtdate.getTime());
             const age=Math.ceil(date_diff/( (1000 * 3600 * 24*366)))
             // const combined_data={data,age}
-            
                     res.status(200).json({
                         en_message: "User details found",
                         sw_message: "Employee Details",

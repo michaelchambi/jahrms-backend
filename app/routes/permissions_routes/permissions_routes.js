@@ -65,6 +65,7 @@ router.post("/permissions/show-action-permission", [authCheck.verifyToken], perm
 router.post("/roles/add-role", [authCheck.verifyToken], role_controller.add);
 router.post("/roles/edit-role", [authCheck.verifyToken], role_controller.edit);
 router.post("/roles/role/show", [authCheck.verifyToken], role_controller.findOne);
+router.post("/roles/role/show/byEmployeeId", [authCheck.verifyToken], role_controller.findOneByEmployeeId);
 router.post("/roles/change-roles", [authCheck.verifyToken], role_controller.changeRoles);
 router.get("/roles/roles", [authCheck.verifyToken], role_controller.findAll);
 router.post("/roles/activate-role", [authCheck.verifyToken], role_controller.activate);

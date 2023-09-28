@@ -18,6 +18,11 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.TEXT,
             allowNull:false,
         },
+        icon:{
+            type:Sequelize.STRING,
+            allowNull:false,
+            defaultValue:'fa fa-grav'
+        },
       
        active:{
             type:Sequelize.BOOLEAN,

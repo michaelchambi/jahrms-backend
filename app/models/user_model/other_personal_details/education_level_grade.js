@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const qualification_grade = sequelize.define("qualification_grade", {
+    const education_level_grade = sequelize.define("education_level_grade", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.INTEGER,
             allowNull:false,
         },
-        qualification_id:{
+        education_level_id:{
             type:Sequelize.INTEGER,
             allowNull:false,
         },
@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
             type:Sequelize.STRING,
             allowNull:false,
         },
-        grade_description:{
+        description:{
             type:Sequelize.TEXT,
             allowNull:false,
         },
@@ -36,5 +36,5 @@ module.exports = (sequelize, Sequelize) => {
        
     });
   
-    return qualification_grade;
+    return education_level_grade;
   };

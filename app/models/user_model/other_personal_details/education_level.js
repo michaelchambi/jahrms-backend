@@ -6,36 +6,23 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:false,
             autoIncrement:true
         },
-       qualification_id:{
+        data_entry_personel_id:{
             type:Sequelize.INTEGER,
-            allowNull:true,
+            allowNull:false,
         },
-        
-        education_level_name:{
+        name:{
             type:Sequelize.STRING,
-            allowNull:true
+            allowNull:false,
         },
-       level_abbreviation:{
-            type:Sequelize.STRING,
-            allowNull:true
-        },
-       description:{
+        description:{
             type:Sequelize.TEXT,
-            allowNull:true
+            allowNull:false,
         },
-        start_date:{
-            type:Sequelize.DATE,
-            allowNull:true
-        },
-
-       certificate_attachment:{
-            type:Sequelize.DATE,
-            allowNull:true
-        },
-        completion_status:{
-            type:Sequelize.INTEGER,
-            allowNull: true,
-            defaultValue:0
+      
+       active:{
+            type:Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue:true
         },
     
         uid:{
