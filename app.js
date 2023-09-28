@@ -88,7 +88,7 @@ const announcement = require("./app/routes/announcement/announcement");
 const bank = require("./app/routes/bank/bank");
 const bank_info = require("./app/routes/bank/bankInfo");
 const department = require("./app/routes/master_data_routes/department");
-const qualification = require("./app/routes/master_data_routes/qualification");
+const education_level = require("./app/routes/master_data_routes/education_level");
 const zone = require("./app/routes/master_data_routes/zone");
 const designation = require("./app/routes/master_data_routes/designation");
 const region = require("./app/routes/master_data_routes/region");
@@ -103,7 +103,7 @@ const leave_type = require("./app/routes/master_data_routes/leave_type");
 const dependant_type = require("./app/routes/master_data_routes/dependant_type");
 const dependant = require("./app/routes/master_data_routes/employee/dependant");
 const next_of_kin = require("./app/routes/master_data_routes/employee/next_of_kin");
-const qualification_grade = require("./app/routes/master_data_routes/qualification_grade");
+const education_level_grade = require("./app/routes/master_data_routes/education_level_grade");
 const cadre = require("./app/routes/master_data_routes/cadre");
 const professional = require("./app/routes/master_data_routes/professional");
 const skill = require("./app/routes/master_data_routes/skill");
@@ -119,11 +119,13 @@ const job_list = require("./app/routes/job_list_routes/job_list_routes");
 const transfer_reason = require("./app/routes/transfer/transfer_reason_routes");
 const designation_cahnges = require("./app/routes/change_designation_routes/promotion_routes");
 const leave = require("./app/routes/leave/leave_routes");
-<<<<<<< HEAD
-
-=======
 const areas = require("./app/routes/areas/areas");
->>>>>>> michael-backend
+const academic_institution = require("./app/routes/academic_institution/academic_institution");
+const academic_specialization = require("./app/routes/academic_specialization/academic_specialization");
+const education_details=require("./app/routes/master_data_routes/employee/education_details");
+const personal_skills=require("./app/routes/master_data_routes/employee/personal_skill");
+const professional_skills=require("./app/routes/master_data_routes/employee/professional_skills");
+
 
 app.use(url_use + api_version, route);
 app.use(url_use + api_version, auth);
@@ -133,8 +135,8 @@ app.use(url_use + api_version, court);
 app.use(url_use + api_version, announcement);
 app.use(url_use + api_version, bank);
 app.use(url_use + api_version, bank_info);
-app.use(url_use + api_version, qualification);
-app.use(url_use + api_version, qualification_grade);
+app.use(url_use + api_version, education_level);
+app.use(url_use + api_version, education_level_grade);
 app.use(url_use + api_version, zone);
 app.use(url_use + api_version, region);
 app.use(url_use + api_version, district);
@@ -165,10 +167,13 @@ app.use(url_use + api_version, job_list);
 app.use(url_use + api_version, designation_cahnges);
 app.use(url_use + api_version, transfer_reason);
 app.use(url_use + api_version, leave);
-<<<<<<< HEAD
-=======
 app.use(url_use + api_version, areas);
->>>>>>> michael-backend
+app.use(url_use + api_version, academic_institution);
+app.use(url_use + api_version, academic_specialization);
+app.use(url_use + api_version, education_details);
+app.use(url_use + api_version, personal_skills);
+app.use(url_use + api_version, professional_skills);
+
 // =============================================================================
 // set port, listen for requests
 // =============================================================================
